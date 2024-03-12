@@ -8,11 +8,11 @@ import pickle
 connection = sqlite3.connect("olist.db")
 
 df = pd.read_sql_query("SELECT * FROM TrainingDataset",connection)
-
+df = df.dropna()
 connection.close()
 
 y = df['score']
-X = df[["produit_recu"]]
+X = df[["produit_recu","temps_livraison"]]
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=42)
 
 model = LogisticRegression()

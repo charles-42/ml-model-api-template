@@ -1,12 +1,12 @@
 from fastapi import FastAPI, APIRouter
-from routers.customers import router as customers_router
+from api.routers.prediction import router as prediction_router, train
 from routers.authentificate import router as authentificate_router
 
 test_router = APIRouter()
 
 app = FastAPI()
 
-app.include_router(customers_router)
+app.include_router(prediction_router)
 
 app.include_router(authentificate_router)
 

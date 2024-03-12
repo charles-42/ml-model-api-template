@@ -1,13 +1,14 @@
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, StaticPool
 from sqlalchemy.orm import sessionmaker, Session
-from database.core import Base, get_db, DBCustomers
+from database.core import Base, get_db, DBModel
 from database.authentificate import create_db_user, UserCreate
-from database.customers import generate_id
+from database.prediction import ModelTraining
 from main import app
 from typing import Generator
 import pytest 
 from unittest.mock import MagicMock
+from utils import train
 
 TEST_DATABASE_URL = "sqlite:///:memory:"
 
@@ -17,19 +18,19 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin
 
 @pytest.fixture
 def session() -> Generator[Session, None, None]:
-
     Base.metadata.create_all(bind=engine)
     db_session = TestingSessionLocal()
 
-    #create test customers
-    db_customer = DBCustomers(
-            customer_id = generate_id(),
-            customer_unique_id = "4321",
-            customer_zip_code_prefix = "59000",
-            customer_city="Lille",
-            customer_state="HDF")
-    
-    db_session.add(db_customer)
+    #create test models
+    db_model = DBModel(
+            model_name = "test_model",
+            recall_train = 0.5,
+            acc_train = 0.5,
+            f1_train = 0.5,
+            recall_test = 0.5,
+            acc_test = 0.5,
+            f1_test = 0.5)
+    db_session.add(db_model)
     db_session.commit()
 
     #create test user
@@ -41,17 +42,45 @@ def session() -> Generator[Session, None, None]:
             password = "test_password"
             ), 
             db_session)
-
+    
     yield db_session
 
     db_session.close()
     Base.metadata.drop_all(bind=engine)
+
+
 
 # Define a pytest fixture to mock the dependencies
 @pytest.fixture(autouse=False)
 def valid_token(monkeypatch):
     # Mock the jwt.decode function to return the mock payload
     monkeypatch.setattr("jose.jwt.decode", MagicMock(return_value={"sub": "test_user"}))
+
+
+# Define a pytest fixture to mock the dependencies
+@pytest.fixture(autouse=False)
+def mock_train(monkeypatch):
+    # Mock the jwt.decode function to return the mock payload
+    monkeypatch.setattr("api.routers.prediction.train", MagicMock(return_value={
+        "model_name": "test_model_3",
+        "recall_train": 0.5,
+        "acc_train": 0.5,
+        "f1_train": 0.5,
+        "recall_test": 0.5,
+        "acc_test": 0.5,
+        "f1_test": 0.5
+    }
+))
+
+@pytest.fixture(autouse=False)
+def mock_get_model_name(monkeypatch):
+    # Mock the jwt.decode function to return the mock payload
+    monkeypatch.setattr("api.routers.prediction.get_model_name", MagicMock(return_value="test_model"))
+
+@pytest.fixture(autouse=False)
+def mock_predict_single(monkeypatch):
+    # Mock the jwt.decode function to return the mock payload
+    monkeypatch.setattr("api.routers.prediction.predict_single", MagicMock(return_value=1))
 
 
 
@@ -64,38 +93,52 @@ def override_get_db():
     yield database
     database.close()
 
+# # using dependency overrides to mock the functions
+# app.dependency_overrides[train] = mock_train
 
 app.dependency_overrides[get_db] = override_get_db
 
-def test_read_root(session:Session):
+def test_read_root():
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == 'Server is running.'
 
-def test_create_customer_unauthorize(session:Session):
-    response = client.post("/customers/",json={
-            "customer_unique_id":"861eff4711a542e4b93843c6dd7febb0",
-            "customer_zip_code_prefix":"14409",
-            "customer_city":"franca"})
+def test_train_unauthorize(session:Session):
+    response = client.post("prediction/train/",json={
+            "model_name":"test_2"})
     assert response.status_code == 401, response.text
 
 
-def test_create_improper_customer(session:Session, valid_token):
-    response = client.post("/customers/",json={
-            "customer_unique_id":"861eff4711a542e4b93843c6dd7febb0",
-            "customer_zip_code_prefix":"14409",
-            "customer_city":"franca"}, headers={"Authorization": f"Bearer {'mocked_token'}"})
+def test_create_improper_train(session:Session, valid_token):
+    response = client.post("prediction/train/",json={
+            "wrong_argument":"test_2"}, headers={"Authorization": f"Bearer {'mocked_token'}"})
     assert response.status_code == 422, response.text
 
-
-def test_create_customer(session:Session, valid_token):
-    response = client.post("/customers/",json={
-            "customer_unique_id":"861eff4711a542e4b93843c6dd7febb0",
-            "customer_zip_code_prefix":"14409",
-            "customer_city":"franca",
-            "customer_state":"SP"
-            }, headers={"Authorization": f"Bearer {'mocked_token'}"})
+def test_train_model(session:Session, valid_token, mock_train):
+    response = client.post("prediction/train/",json={
+            "model_name":"test_2"}, headers={"Authorization": f"Bearer {'mocked_token'}"})
     assert response.status_code == 200, response.text
+    assert 'model_name' in response.json()
+
+def test_predict_single(mock_get_model_name,mock_predict_single):
+    # Assuming SinglePredictionInput is a pydantic model
+    data = {"produit_recu":1, "temps_livraison":12}
+          # Replace with actual input data
+    response = client.post("prediction/single/", json=data)
+    assert response.status_code == 200
+    # Assuming predict_single returns a valid prediction
+    assert "prediction" in response.json()
+
+def test_predict_batch(mock_get_model_name,mock_predict_single):
+    # Assuming SinglePredictionInput is a pydantic model
+    data = [{"produit_recu":1, "temps_livraison":12},{"produit_recu":0, "temps_livraison":12}]
+          # Replace with actual input data
+    response = client.post("prediction/batch/", json=data)
+    assert response.status_code == 200
+    # Assuming predict_single returns a valid prediction
+    assert len(response.json()) == 2
+
+
 
 ####  Authentification
 
@@ -128,16 +171,3 @@ def test_login_for_access_token(session):
 
 
 
-
-# Define a test case
-def test_is_authorized(session:Session, valid_token): 
-
-    # Make a request to the endpoint with the mock token
-    response = client.get("/auth/is_authorized/", headers={"Authorization": f"Bearer {'mocked_token'}"})
-    
-    # Assert the response status code
-    assert response.status_code == 200
-    
-    # Assert any other aspects of the response if needed
-    # For example, if you expect the response to contain user data
-    assert response.json() == True

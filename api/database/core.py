@@ -11,20 +11,6 @@ class NotFoundError(Exception):
 class Base(DeclarativeBase):
     pass
 
-
-
-class DBCustomers(Base):
-
-    __tablename__ = "customers"
-
-    customer_id: Mapped[str] = mapped_column(primary_key=True, index=True)
-    customer_unique_id: Mapped[str]
-    customer_zip_code_prefix: Mapped[str] 
-    customer_city: Mapped[str]
-    customer_state: Mapped[str]
-
-
-
 class DBUsers(Base):
 
     __tablename__ = "users"
@@ -40,6 +26,20 @@ class DBToken(Base):
     __tablename__ = "tokens"
 
     username: Mapped[str] = mapped_column(primary_key=True, index=True)
+
+
+
+class DBModel(Base):
+      
+    __tablename__ = "models"
+
+    model_name: Mapped[str] = mapped_column(primary_key=True, index=True)
+    recall_train : Mapped[float]
+    acc_train: Mapped[float]
+    f1_train: Mapped[float]
+    recall_test: Mapped[float]
+    acc_test: Mapped[float]
+    f1_test: Mapped[float]
 
 engine = create_engine(DATABASE_URL)
 session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
