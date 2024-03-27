@@ -25,6 +25,7 @@ pandas==2.2.0
 passlib==1.7.4
 pluggy==1.4.0
 pyasn1==0.5.1
+pycodestyle==2.11.1
 pydantic==2.6.1
 pydantic-extra-types==2.5.0
 pydantic-settings==2.2.1

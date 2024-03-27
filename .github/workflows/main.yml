@@ -17,4 +17,14 @@ jobs:
       - name: Set up Python 
         uses: actions/setup-python@v2
         with: 
-          python-version: 
+          python-version: '3.9.19'
+      
+      - name: Install requirements 
+        run: pip install -r ml-model-api-template/requirements.txt
+
+      - name: Check syntax
+        run : pycodestyle --statistics 
+
+      - name: Run Test 
+        working-directory: test
+        run: pytest --cov=main --v
