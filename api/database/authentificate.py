@@ -9,6 +9,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from dotenv import load_dotenv
 import os
+from typing import Optional
 
 # Load environment variables from .env file
 load_dotenv()
@@ -20,9 +21,9 @@ class Token(BaseModel):
 
 class User(BaseModel):
     username: str
-    email: str | None = None
-    full_name: str | None = None
-    disabled: bool | None = None
+    email: Optional[str] = None
+    full_name: Optional[str] = None
+    disabled: Optional[bool] = None
 
 class UserCreate(BaseModel):
     username: str
@@ -79,7 +80,7 @@ def authenticate_user(session: Session, username: str, password: str):
         return False
     return db_user
 
-def create_access_token(data: dict, expires_delta: timedelta | None = None):
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta

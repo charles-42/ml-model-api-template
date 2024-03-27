@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter
 from api.routers.prediction import router as prediction_router, train
-from routers.authentificate import router as authentificate_router
+from api.routers.authentificate import router as authentificate_router
 
 test_router = APIRouter()
 

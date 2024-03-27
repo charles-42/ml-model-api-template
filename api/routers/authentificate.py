@@ -4,8 +4,8 @@ from fastapi.params import Depends
 from sqlalchemy.orm import Session
 from typing import List, Annotated
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from database.core import get_db
-from database.authentificate import Token, User, UserCreate, authenticate_user, create_db_user, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, has_access
+from api.database.core import get_db
+from api.database.authentificate import Token, User, UserCreate, authenticate_user, create_db_user, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, has_access
 
 router = APIRouter(
     prefix="/auth",
