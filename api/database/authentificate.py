@@ -15,6 +15,7 @@ from typing import Optional
 load_dotenv()
 
 
+
 class Token(BaseModel):
     access_token: str
     token_type: str
