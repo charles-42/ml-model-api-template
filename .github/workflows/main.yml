@@ -26,5 +26,5 @@ jobs:
       #   run : pycodestyle --statistics api
 
       - name: Run Test 
-        working-directory: test
+        working-directory: api/test
         run: pytest --cov=main --v
