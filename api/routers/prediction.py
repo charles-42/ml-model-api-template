@@ -3,10 +3,10 @@ from fastapi.params import Depends
 from sqlalchemy.orm import Session
 from typing import List
 from typing import List, Annotated
-from database.core import NotFoundError, get_db
-from database.authentificate import oauth2_scheme, has_access, User
-from database.prediction import ModelTraining, ModelTrained, SinglePredictionOutput, BatchPredictionOutput, SinglePredictionInput, BatchPredictionInput, create_db_model, read_db_models
-from utils import train, update_model_name, get_model_name
+from api.database.core import NotFoundError, get_db
+from api.database.authentificate import oauth2_scheme, has_access, User
+from api.database.prediction import ModelTraining, ModelTrained, SinglePredictionOutput, BatchPredictionOutput, SinglePredictionInput, BatchPredictionInput, create_db_model, read_db_models
+from api.utils import train, update_model_name, get_model_name
 
 PROTECTED = Annotated[User, Depends(has_access)]
 
