@@ -20,12 +20,14 @@ router = APIRouter(
 def train_model(has_access: PROTECTED, request: Request, model: ModelTraining,db: Session = Depends(get_db)) -> ModelTrained:
     metrics = train(model.model_name)
     model_trained =  ModelTrained(**metrics)
-    create_db_model(model_trained, db)
+    db_manager = CreateDB(session=db)
+    db_manager.create_db_model(model_trained)
     return model_trained
 
 @router.get("/models")
 def get_models(request: Request, db: Session = Depends(get_db)) -> List[ModelTrained]:
-    models = read_db_models(db)
+    db_manager = CreateDB(session=db)
+    models = db_manager.read_db_models()
     return models
 
 @router.put("/update")
@@ -35,6 +37,7 @@ def update_model(request: Request, model_name: str):
     return {"message": "model name updated"}
 
 #################################################################################################
+
 @router.post("/to_predict")
 def to_predict(request: Request, order: SinglePredictionInput, db: Session = Depends(get_db)):
     db_manager = CreateDB(session=db)
@@ -53,8 +56,8 @@ def get_prediction(entry_id: ValidateId, db: Session = Depends(get_db)):
 
 
 @router.post("/predict_migrate")
-def make_migration(request: Request, model_name : ModelTraining, db: Session = Depends(get_db)):
-    make_predictions(model_name, db)
+def make_migration(request: Request, db: Session = Depends(get_db)):
+    make_predictions(db)
     
 ###################################################################################
     

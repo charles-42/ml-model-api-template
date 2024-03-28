@@ -186,7 +186,7 @@ def train(model_name):
     return  metrics_dict 
 
 ###############################################################################
-def make_predictions(model_name, session):
+def make_predictions(session):
     try:
         entries_to_predict = session.query(DBToPredict).all()
         for entry in entries_to_predict:

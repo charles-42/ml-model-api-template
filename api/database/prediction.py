@@ -39,10 +39,7 @@ class PredictionImput(BaseModel):
     
 class ValidateId(BaseModel):
     id : int 
-
-
-
-
+    
 #############################################################################
 
 class CreateDB():
@@ -101,5 +98,8 @@ class CreateDB():
     
     def get_prediction_by_id(self, entry_id: ValidateId) -> SinglePredictionOutput:
         prediction_entry = self.session.query(DBPrediction).filter_by(id=entry_id).first()
+        if not prediction_entry:
+            raise NotFoundError("Database is empty")
         return prediction_entry
+    
 ###########################################################################
