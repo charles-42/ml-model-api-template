@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine, StaticPool
 from sqlalchemy.orm import sessionmaker, Session
-from database.core import Base, DBModel
+from api.database.core import Base, DBModel
 from typing import Generator
-from database.prediction import create_db_model,read_db_models, ModelTrained
+from api.database.prediction import create_db_model,read_db_models, ModelTrained
 import pytest
 
 @pytest.fixture
