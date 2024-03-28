@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Column, Integer
 from sqlalchemy.orm import sessionmaker, DeclarativeBase, Mapped, mapped_column
 
 
@@ -40,6 +40,24 @@ class DBModel(Base):
     recall_test: Mapped[float]
     acc_test: Mapped[float]
     f1_test: Mapped[float]
+    
+################################################################################   
+class DBToPredict(Base):
+          
+    __tablename__ = "topredict"
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    produit_recu: Mapped[int] 
+    temps_livraison: Mapped[int] 
+    
+class DBPrediction(Base):
+          
+    __tablename__ = "prediction"
+    
+    id : Mapped[int] = mapped_column(primary_key=True, index=True)
+    prediction : Mapped[int]
+    
+################################################################################
 
 engine = create_engine(DATABASE_URL)
 session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)

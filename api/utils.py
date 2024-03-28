@@ -7,6 +7,9 @@ from sklearn.metrics import recall_score, accuracy_score, f1_score
 import pickle
 import json
 
+from database.core import DBToPredict, DBPrediction
+from database.prediction import SinglePredictionOutput
+
 def predict_single(model_name, order):
 
     with open(f"ml_models/{model_name}.pkl", 'rb') as file:
@@ -181,6 +184,21 @@ def train(model_name):
     metrics_dict = modelisation(df, model_name)
     connection.close()
     return  metrics_dict 
+
+###############################################################################
+def make_predictions(model_name, session):
+    try:
+        entries_to_predict = session.query(DBToPredict).all()
+        for entry in entries_to_predict:
+            model_name = get_model_name()
+            prediction = predict_single(model_name, entry)
+            prediction = SinglePredictionOutput(prediction=prediction)
+            new_prediction = DBPrediction(id=entry.id, prediction=prediction)
+            session.add(new_prediction)
+        session.commit()
+    finally:
+        session.close()    
+##############################################################################
 
 
 
