@@ -6,7 +6,7 @@ from typing import List, Annotated
 from database.core import NotFoundError, get_db
 from database.authentificate import oauth2_scheme, has_access, User
 from database.prediction import ModelTraining, ModelTrained, SinglePredictionOutput,  SinglePredictionInput, CreateDB, ValidateId
-from utils import train, update_model_name, get_model_name
+from utils import train, update_model_name, get_model_name, make_predictions
 
 PROTECTED = Annotated[User, Depends(has_access)]
 
@@ -52,10 +52,10 @@ def get_prediction(entry_id: ValidateId, db: Session = Depends(get_db)):
     return {f"La prediction pour l'id {entry_id} est {prediction_entry}"}
 
 
-@router.post("/make_migration")
-def make_migration(request: Request, db: Session = Depends(get_db)):
-    db_manager = CreateDB(session=db)
-
+@router.post("/predict_migrate")
+def make_migration(request: Request, model_name : ModelTraining, db: Session = Depends(get_db)):
+    make_predictions(model_name, db)
+    
 ###################################################################################
     
 
