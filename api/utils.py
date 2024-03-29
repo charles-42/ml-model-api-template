@@ -32,7 +32,7 @@ def update_model_name(model_name):
         json.dump(data, json_file)
 
 def get_model_name():
-    with open("model_name.json", "r") as json_file:
+    with open("./model_name.json", "r") as json_file:
         data = json.load(json_file)
     return data["model_name"]
 

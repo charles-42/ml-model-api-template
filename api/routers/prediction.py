@@ -56,18 +56,21 @@ def get_prediction(request: Request, entry_id: int, db: Session = Depends(get_db
 @router.post("/to_schedule")
 def make_migration(request: Request, db: Session = Depends(get_db)):
     make_predictions(db)
+    return {"Les mission est faite avec succés"}
    
     
-# @router.get("/get_all")
-# def get_all(request: Request , db: Session = Depends(get_db)):
-#     db_manager = CreateDB(session=db)
-#     db_manager.read_db_to_predict()
 
-# test pour inserer des données dans la table prediction 
-# @router.post("/test")
+# #test pour inserer des données dans la table prediction 
+# @router.post("/post_data")
 # def test(request: Request, order: PredictionImput, db: Session = Depends(get_db)):
 #     db_manager = CreateDB(session=db)
 #     db_manager.ceate_db_prediction(order)
+
+# #test pour affciher ce qu on a ajouté dans la table prediction
+# @router.get("/get_all_prediction")
+# def get_all(request: Request , db: Session = Depends(get_db)) -> List[PredictionImput]:
+#     db_manager = CreateDB(session=db)
+#     return [raw for raw in db_manager.read_db_prediction()]
     
 
     

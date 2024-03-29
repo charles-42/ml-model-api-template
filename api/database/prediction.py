@@ -68,7 +68,7 @@ class CreateDB():
         self.session.refresh(new_entry)
         
     
-    def read_db_to_predict(self) -> List[DBToPredict]:
+    def read_db_to_predict(self) :
         entries = self.session.query(DBToPredict).all()
         if not entries:
             raise NotFoundError("Database is empty")
@@ -82,7 +82,7 @@ class CreateDB():
         self.session.refresh(new_entry)
         
     
-    def read_db_prediction(self) -> List[DBPrediction]:
+    def read_db_prediction(self) :
         entries = self.session.query(DBPrediction).all()
         if not entries:
             raise NotFoundError("Database is empty")
