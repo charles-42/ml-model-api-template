@@ -3,9 +3,10 @@ import sqlite3
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import recall_score, accuracy_score, f1_score
-import pickle
+from skl2onnx import convert_sklearn
+from skl2onnx.common.data_types import FloatTensorType
 
-connection = sqlite3.connect("olist.db")
+connection = sqlite3.connect("../olist.db")
 
 df = pd.read_sql_query("SELECT * FROM TrainingDataset",connection)
 df = df.dropna()
@@ -19,7 +20,6 @@ model = LogisticRegression()
 
 model.fit(X_train,y_train)
 
-
 recall_train = round(recall_score(y_train, model.predict(X_train)),4)
 acc_train = round(accuracy_score(y_train, model.predict(X_train)),4)
 f1_train = round(f1_score(y_train, model.predict(X_train)),4)
@@ -32,9 +32,8 @@ f1_test = round(f1_score(y_test, model.predict(X_test)),4)
 
 print(f"Pour le jeu de test: \n le recall est de {recall_test}, \n l'accuracy de {acc_test} \n le f1 score de {f1_test}")
 
-model_name = 'log_produitrecu'
-print(f"['{model_name}', {recall_train}, {acc_train}, {f1_train}, {recall_test}, {acc_test}, {f1_test} ],")
+initial_type = [('float_input', FloatTensorType([None, 2]))]
+onx = convert_sklearn(model, initial_types=initial_type)
 
-# Save the model to a file using pickle
-with open('best_reg_lin_produit_recu.pkl', 'wb') as file:
-    pickle.dump(model, file)
+with open("best_reg_lin_produit_recu.onnx", "wb") as f:
+    f.write(onx.SerializeToString())
