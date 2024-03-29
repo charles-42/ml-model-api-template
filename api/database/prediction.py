@@ -34,11 +34,18 @@ class SinglePredictionOutput(BaseModel):
     prediction: int
 
 
+# def create_db_model(model_trained: ModelTrained, session: Session) -> None:
+#     db_model = DBModel(**model_trained.model_dump(exclude_none=True))
+#     session.add(db_model)
+#     session.commit()
+#     session.refresh(db_model)
+
 def create_db_model(model_trained: ModelTrained, session: Session) -> None:
-    db_model = DBModel(**model_trained.model_dump(exclude_none=True))
+    db_model = DBModel(**model_trained.dict())
     session.add(db_model)
     session.commit()
     session.refresh(db_model)
+
 
 def read_db_models(session: Session) -> List[DBModel]:
     db_model = session.query(DBModel).all()

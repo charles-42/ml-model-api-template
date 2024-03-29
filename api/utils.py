@@ -4,21 +4,31 @@ from numpy import dtype
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import recall_score, accuracy_score, f1_score
-import pickle
+from skl2onnx import convert_sklearn
+from skl2onnx.common.data_types import FloatTensorType
+import onnxruntime as rt
 import json
 
-def predict_single(model_name, order):
+import os
+if not os.path.exists('ml_models'):
+    os.makedirs('ml_models')
+    
+    
 
-    with open(f"ml_models/{model_name}.pkl", 'rb') as file:
-        loaded_model = pickle.load(file)
+def predict_single(model_name, order):
+    sess = rt.InferenceSession(f"ml_models/{model_name}.onnx")
 
     data = {'produit_recu':[order.produit_recu],
             'temps_livraison':[order.temps_livraison]}
     df_to_predict = pd.DataFrame(data)
 
-    prediction = loaded_model.predict(df_to_predict)
+    input_name = sess.get_inputs()[0].name
+    label_name = sess.get_outputs()[0].name
+
+    prediction = sess.run([label_name], {input_name: df_to_predict.values.astype('float32')})[0]
 
     return prediction[0]
+
 
 def update_model_name(model_name):
     data = {
@@ -33,7 +43,19 @@ def get_model_name():
         data = json.load(json_file)
     return data["model_name"]
 
-def get_db(db_name = "olist.db"):
+# def get_model_name():
+#     # Liste tous les fichiers dans le répertoire 'ml_models'
+#     files = os.listdir('ml_models')
+#     # Filtrer les fichiers .onnx
+#     onnx_files = [f for f in files if f.endswith('.onnx')]
+#     if onnx_files:
+#         # Prendre le premier fichier .onnx, supprimer l'extension .onnx pour obtenir le nom du modèle
+#         model_name = onnx_files[0][:-5]
+#         return model_name
+#     else:
+#         return None
+
+def get_db(db_name = "../olist.db"):
     connection = sqlite3.connect(db_name)
     df_reviews = pd.read_sql_query("SELECT * FROM Reviews",connection)
     return df_reviews , connection
@@ -147,23 +169,25 @@ def modelisation(df, model_name):
 
     model.fit(X_train,y_train)
 
-
     recall_train = round(recall_score(y_train, model.predict(X_train)),4)
     acc_train = round(accuracy_score(y_train, model.predict(X_train)),4)
     f1_train = round(f1_score(y_train, model.predict(X_train)),4)
-
-    print(f"Pour le jeu d'entrainement: \n le recall est de {recall_train}, \n l'accuracy de {acc_train} \n le f1 score de {f1_train}")
 
     recall_test = round(recall_score(y_test, model.predict(X_test)),4)
     acc_test = round(accuracy_score(y_test, model.predict(X_test)),4)
     f1_test = round(f1_score(y_test, model.predict(X_test)),4)
 
-    print(f"['{model_name}', {recall_train}, {acc_train}, {f1_train}, {recall_test}, {acc_test}, {f1_test} ],")
+    try:
+        # Convert the model to ONNX
+        initial_type = [('float_input', FloatTensorType([None, 2]))]
+        onnx_model = convert_sklearn(model, initial_types=initial_type)
 
-    # Save the model to a file using pickle
-    with open(f"ml_models/{model_name}.pkl", 'wb') as file:
-        pickle.dump(model, file)
-    
+        # Save the model
+        with open(f"ml_models/{model_name}.onnx", "wb") as f:
+            f.write(onnx_model.SerializeToString())
+    except Exception as e:
+        print(f"Erreur lors de la conversion ou de la sauvegarde du modèle : {e}")
+
     return {
         "model_name": model_name,
         "recall_train": recall_train,
@@ -173,6 +197,7 @@ def modelisation(df, model_name):
         "acc_test": acc_test,
         "f1_test": f1_test
     }
+
 
 def train(model_name): 
     df_reviews, connection = get_db()
