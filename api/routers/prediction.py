@@ -53,7 +53,7 @@ def get_prediction(request: Request, entry_id: int, db: Session = Depends(get_db
 
 
 @router.post("/to_schedule")
-def make_migration(request: Request, db: Session = Depends(get_db)):
+def make_prediction(request: Request, db: Session = Depends(get_db)):
     make_predictions(db)
     return {"Les mission est faite avec succés"}
    
