@@ -45,7 +45,6 @@ def to_predict(request: Request, order: SinglePredictionInput, db: Session = Dep
     return {"votre id est": new_entry_id}
 
 
-
 @router.get("/prediction")
 def get_prediction(request: Request, entry_id: int, db: Session = Depends(get_db)):
     db_manager = CreateDB(session=db)
