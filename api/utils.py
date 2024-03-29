@@ -197,9 +197,8 @@ def make_predictions(session):
             if not prediction_exists:
                 # Si aucune prédiction n'existe, faire la prédiction et l'ajouter à la table "prediction"
                 model_name = get_model_name()
-                prediction = predict_single(model_name, entry)
-                prediction_ = SinglePredictionOutput(prediction=prediction)
-                new_prediction = DBPrediction(id=entry.id, prediction=prediction_)
+                prediction = int(predict_single(model_name, entry))
+                new_prediction = DBPrediction(id=entry.id, prediction=prediction)
                 session.add(new_prediction)
         session.commit()
     finally:
