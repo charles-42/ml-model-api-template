@@ -20,7 +20,7 @@ router = APIRouter(
 logger = logging.getLogger("api_model.prediction")
 
 @router.post("/train")
-def train_model(request: Request, model: ModelTraining, db: Session = Depends(get_db)) -> ModelTrained:
+def train_model(has_access: PROTECTED, request: Request, model: ModelTraining, db: Session = Depends(get_db)) -> ModelTrained:
     logger.debug(f"Starting model training: {model.model_name}")
     try:
         metrics = train(model.model_name)
@@ -40,7 +40,7 @@ def get_models(request: Request, db: Session = Depends(get_db)) -> List[ModelTra
     return models
 
 @router.put("/update")
-def update_model(request: Request, model_name: str):
+def update_model(has_access: PROTECTED, request: Request, model_name: str):
     logger.debug(f"Updating model: {model_name}")
     try:
         update_model_name(model_name)

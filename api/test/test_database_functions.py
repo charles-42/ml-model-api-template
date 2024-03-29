@@ -65,3 +65,4 @@ def test_read_models(session:Session) -> None:
     assert models[0].recall_test == 0.5
     assert models[0].acc_test == 0.5
     assert models[0].f1_test == 0.5
+    
