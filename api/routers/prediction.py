@@ -71,8 +71,6 @@ def make_migration(request: Request, db: Session = Depends(get_db)):
 #     db_manager = CreateDB(session=db)
 #     return [raw for raw in db_manager.read_db_prediction()]
     
-
-    
 ###################################################################################
     
 
