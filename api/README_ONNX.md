@@ -16,7 +16,7 @@ Il comprend :
 ## Configuration
 
 1. Créez un environnement virtuel et installez les exigences depuis "requirements.txt":
-
+---
 ```bash
 python3 -m venv env
 pip install -r requirements.txt
