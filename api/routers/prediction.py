@@ -5,7 +5,7 @@ from typing import List
 from typing import List, Annotated
 from database.core import NotFoundError, get_db
 from database.authentificate import oauth2_scheme, has_access, User
-from database.prediction import ModelTraining, ModelTrained, SinglePredictionOutput,  SinglePredictionInput, CreateDB, ValidateId
+from database.prediction import ModelTraining, ModelTrained, SinglePredictionOutput,  SinglePredictionInput, CreateDB, ValidateId, PredictionImput
 from utils import train, update_model_name, get_model_name, make_predictions
 
 PROTECTED = Annotated[User, Depends(has_access)]
@@ -47,17 +47,29 @@ def to_predict(request: Request, order: SinglePredictionInput, db: Session = Dep
 
 
 @router.get("/prediction")
-def get_prediction(entry_id: ValidateId, db: Session = Depends(get_db)):
+def get_prediction(request: Request, entry_id: int, db: Session = Depends(get_db)):
     db_manager = CreateDB(session=db)
     prediction_entry = db_manager.get_prediction_by_id(entry_id)
-    if not prediction_entry:
-        raise HTTPException(status_code=404, detail="Prediction not found")
     return {f"La prediction pour l'id {entry_id} est {prediction_entry}"}
 
 
-@router.post("/predict_migrate")
+@router.post("/to_schedule")
 def make_migration(request: Request, db: Session = Depends(get_db)):
     make_predictions(db)
+   
+    
+# @router.get("/get_all")
+# def get_all(request: Request , db: Session = Depends(get_db)):
+#     db_manager = CreateDB(session=db)
+#     db_manager.read_db_to_predict()
+
+# test pour inserer des données dans la table prediction 
+# @router.post("/test")
+# def test(request: Request, order: PredictionImput, db: Session = Depends(get_db)):
+#     db_manager = CreateDB(session=db)
+#     db_manager.ceate_db_prediction(order)
+    
+
     
 ###################################################################################
     

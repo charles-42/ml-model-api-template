@@ -41,21 +41,22 @@ class DBModel(Base):
     acc_test: Mapped[float]
     f1_test: Mapped[float]
     
-################################################################################   
+################################################################################  
+ 
 class DBToPredict(Base):
           
     __tablename__ = "topredict"
     
     id = Column(Integer, primary_key=True, autoincrement=True)
-    produit_recu: Mapped[int] 
-    temps_livraison: Mapped[int] 
+    produit_recu = Column(Integer)
+    temps_livraison = Column(Integer)
     
 class DBPrediction(Base):
           
     __tablename__ = "prediction"
     
-    id : Mapped[int] = mapped_column(primary_key=True, index=True)
-    prediction : Mapped[int]
+    id = Column(Integer, primary_key=True)
+    prediction = Column(Integer)
     
 ################################################################################
 

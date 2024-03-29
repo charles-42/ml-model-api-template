@@ -186,18 +186,25 @@ def train(model_name):
     return  metrics_dict 
 
 ###############################################################################
+from sqlalchemy import exists
+
 def make_predictions(session):
     try:
         entries_to_predict = session.query(DBToPredict).all()
         for entry in entries_to_predict:
-            model_name = get_model_name()
-            prediction = predict_single(model_name, entry)
-            prediction = SinglePredictionOutput(prediction=prediction)
-            new_prediction = DBPrediction(id=entry.id, prediction=prediction)
-            session.add(new_prediction)
+            # Vérifier si une prédiction existe déjà pour cet ID dans la table "prediction"
+            prediction_exists = session.query(exists().where(DBPrediction.id == entry.id)).scalar()
+            if not prediction_exists:
+                # Si aucune prédiction n'existe, faire la prédiction et l'ajouter à la table "prediction"
+                model_name = get_model_name()
+                prediction = predict_single(model_name, entry)
+                prediction_ = SinglePredictionOutput(prediction=prediction)
+                new_prediction = DBPrediction(id=entry.id, prediction=prediction_)
+                session.add(new_prediction)
         session.commit()
     finally:
-        session.close()    
+        session.close()
+   
 ##############################################################################
 
 
