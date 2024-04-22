@@ -21,6 +21,4 @@ run_name = args.run_name
 start_date = args.start_date
 end_date = args.end_date
 
-print(run_name,start_date,end_date)
-
-# training(run_name,start_date,end_date)
+training(run_name,start_date,end_date)

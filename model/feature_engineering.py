@@ -8,11 +8,6 @@ def feature_engineering(connection,run_name):
                                              format= '%Y-%m-%d %H:%M:%S', 
                                              errors="coerce")
 
-    df.review_answer_timestamp = pd.to_datetime(df['review_answer_timestamp'], 
-                                                format= '%Y-%m-%d %H:%M:%S', 
-                                                errors="coerce")
-
-
     df.order_purchase_timestamp = pd.to_datetime(df['order_purchase_timestamp'], 
                                             format= '%Y-%m-%d %H:%M:%S', 
                                             errors="coerce")
@@ -41,8 +36,12 @@ def feature_engineering(connection,run_name):
             return 1
 
     df['produit_recu'] = df[["order_delivered_customer_date","review_creation_date"]].apply(f, axis=1)
+    return df
+    
+if __name__ == "__main__":
+    import pandas as pd
+    import sqlite3
+    connection = sqlite3.connect("olist.db")
+    df = feature_engineering(connection,"first_run_2017")
+    df.to_sql("first_run_2017"+'_TrainingDataset', connection, index=False, if_exists='replace')
 
-    df["order_status"] = df["order_status"].apply(lambda x: "unavailable" if x in ["created","approved"] else x)
-
-
-    df.to_sql(run_name+'_TrainingDataset', connection, index=False, if_exists='replace')

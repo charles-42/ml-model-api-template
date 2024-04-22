@@ -6,10 +6,10 @@ start_date="2017-01-01"
 end_date="2018-01-01"
 
 # Run the Python script with parameters
-python main.py $run_name $start_date $end_date 
+python model/main.py $run_name $start_date $end_date 
 
-# Define your pytest command and its parameters
+# # Define your pytest command and its parameters
 pytest_parameters="--run_name=$run_name"
 
-# Run pytest with parameters
-pytest test_quality.py $pytest_parameters
+# # Run pytest with parameters
+pytest model/test_quality.py $pytest_parameters
