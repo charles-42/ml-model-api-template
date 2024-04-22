@@ -1,8 +1,8 @@
 import pytest
 import pandas as pd
-from data_cleaning import data_cleaning
-from feature_engineering import feature_engineering
-from modelisation import modelisation
+from model.data_cleaning import data_cleaning
+from model.feature_engineering import feature_engineering
+from model.modelisation import modelisation
 from unittest.mock import patch  # Import patch from unittest.mock
 import mlflow
 
