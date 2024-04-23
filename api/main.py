@@ -1,20 +1,19 @@
-from fastapi import FastAPI, APIRouter
-from api.routers.prediction import router as prediction_router, train
-from routers.authentificate import router as authentificate_router
-
-test_router = APIRouter()
+# main.py script
+from fastapi import FastAPI, Depends
+import api.predict
+from api.utils import has_access
+from fastapi import FastAPI
+from fastapi.params import Depends
+from api.utils import has_access, SinglePredictionInput, SinglePredictionOutput, predict_single, get_model_path
+from typing import List, Annotated
 
 app = FastAPI()
 
-app.include_router(prediction_router)
+# routes
+PROTECTED = [Depends(has_access)]
 
-app.include_router(authentificate_router)
-
-@app.get("/")
-def read_root():
-    return "Server is running."
-
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+app.include_router(
+    api.predict.router,
+    prefix="/predict",
+    dependencies=PROTECTED
+)

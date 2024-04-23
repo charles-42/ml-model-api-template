@@ -1,4 +1,4 @@
-def modelisation(connection,run_name):
+def modelisation(connection,run_name, start_date = "2017-01-01", end_date = "2018-01-01"):
     import pandas as pd
     from sklearn.model_selection import train_test_split
     from sklearn.linear_model import LogisticRegression
@@ -12,7 +12,7 @@ def modelisation(connection,run_name):
 
     
     df = pd.read_sql_query(modelisation_query,connection)
-    df = df.dropna()
+    # df = df.dropna()
 
     y = df['score']
     X = df[["produit_recu","temps_livraison"]]
@@ -33,6 +33,8 @@ def modelisation(connection,run_name):
         model = LogisticRegression()
         model.fit(X_train,y_train)
 
+        mlflow.set_tag("start_date", start_date)
+        mlflow.set_tag("end_date", end_date)
 
         recall_train = round(recall_score(y_train, model.predict(X_train)),4)
         acc_train = round(accuracy_score(y_train, model.predict(X_train)),4)

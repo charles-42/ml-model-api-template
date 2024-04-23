@@ -40,7 +40,7 @@ def connection(run_name):
                     'order_id': [0, 1, 2, 3, 4],
                     'order_purchase_timestamp': ['2016-01-01 12:00:00', '2016-01-02 12:00:00', '2016-01-03 12:00:00', '2016-01-04 12:00:00', '2016-01-05 12:00:00'],
                     'order_delivered_customer_date': ['2016-01-05 12:00:00', '2016-01-07 12:00:00', '2016-01-09 12:00:00', '2016-01-11 12:00:00', '2016-01-12 12:00:00'],
-                    'order_estimated_delivery_date': ['2016-01-07', '2016-01-09', '2016-01-11', '2016-01-13', '2016-01-14']
+                    'order_estimated_delivery_date': ['2016-01-07 12:00:00', '2016-01-09 12:00:00', '2016-01-11 12:00:00', '2016-01-13 12:00:00', '2016-01-14 12:00:00']
                 })
 
                 self.mock_clean_data = pd.DataFrame({
@@ -85,9 +85,11 @@ def test_data_cleaning(connection,run_name, start_date, end_date):
         df_clean = pd.read_sql_query(f"SELECT * FROM {run_name}_CleanDataset",connection)
         df_clean.review_creation_date = pd.to_datetime(df_clean['review_creation_date'])
 
+    assert len(df_clean) > 0
     
     assert set(df_clean.columns) == {'order_id', 'review_score','review_creation_date',
-                                     'order_purchase_timestamp','order_delivered_customer_date','order_estimated_delivery_date'}  # Check if all expected columns are present
+                                     'order_purchase_timestamp','order_delivered_customer_date',
+                                     'order_estimated_delivery_date'}  # Check if all expected columns are present
 
     # Assert that there are no raw before the start_date
     assert df_clean['review_creation_date'].min() >= pd.to_datetime(start_date)
@@ -123,7 +125,6 @@ def test_feature_engineering(connection,run_name):
     assert df_feat['produit_recu'].isin([0, 1]).all()
     assert df_feat['temps_livraison'].dtype in [int, 'int64'], f"Column 'temps_livraison' is not of integer type"
 
-
 def test_modelisation(connection,run_name):
     import pickle
     import os
@@ -143,7 +144,6 @@ def test_modelisation(connection,run_name):
         run_id = filtered_runs.iloc[0]['run_id']
 
     
-    assert run_id 
     run = mlflow.get_run(run_id)
     assert run
     # Get run metrics
