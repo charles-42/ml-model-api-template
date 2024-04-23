@@ -1,6 +1,7 @@
 olist.db
 ml_models/*.pkl
 mlruns/
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
