@@ -61,3 +61,4 @@ if __name__ == "__main__":
     connection = sqlite3.connect("olist.db")
     df = data_cleaning(connection,"first_run_2017",start_date="2017-01-01",end_date="2018-01-01")
     df.to_sql("first_run_2017" +'_CleanDataset', connection, index=False, if_exists='replace')
+    
