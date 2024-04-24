@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Set variables for resource group and server name
-resourceGroupName="BENIAC_data_api"
-serverName="DBServerNameOlistmodelapitemplate"
+resourceGroupName="BENIAC_data_api_olist"
+serverName="DBOlistModelApiTemplate"
 databaseName="olist"
 
 

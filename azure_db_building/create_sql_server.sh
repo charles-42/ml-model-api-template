@@ -3,7 +3,7 @@
 # Set variables for resource group, server name, and database name
 resourceGroupName="BENIAC_data_api_olist"
 location="francecentral"  # e.g., "eastus"
-serverName="DBServerNameOlistmodelapitemplate"
+serverName="DBOlistModelApiTemplate"
 databaseName="olist"
 username="adminuser"
 password='eyJhbGciOiJIUzI1NiIsInR5cCI@^zdW%IiOiJhZG1pbiH3CxlTRDJj3RMKrY6B4x8'
