@@ -4,8 +4,8 @@ import api.predict
 from api.utils import has_access
 from fastapi import FastAPI
 from fastapi.params import Depends
-from api.utils import has_access, SinglePredictionInput, SinglePredictionOutput, predict_single, get_model_path
-from typing import List, Annotated
+from api.utils import has_access
+
 
 app = FastAPI()
 

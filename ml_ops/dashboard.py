@@ -67,12 +67,12 @@ filtered_training_data = load_data_training(selected_model)
 st.title('Evaluation du drift')
 
 # Partie "Evaluation du prediction drift"
-st.header('Evaluation du prediction drift')
+st.header('Evaluation du drift sur la distribution des prédictions')
 
 plot_score_distribution(filtered_predictions_data,filtered_training_data)
 
 # Partie "Evaluation du data drift"
-st.header('Evaluation du data drift')
+st.header('Evaluation du drift sur la distribution des variables explicatives')
 
 # Sélection de la variable explicative à afficher
 selected_variable = st.selectbox('Sélectionnez une variable explicative', ['produit_recu', 'temps_livraison'])
