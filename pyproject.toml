@@ -25,6 +25,7 @@ azureml-mlflow = "^1.55.0"
 azureml-core = "^1.55.0.post2"
 asyncio = "^3.4.3"
 setuptools = "^69.5.1"
+watchdog = "^4.0.0"
 
 
 [build-system]
