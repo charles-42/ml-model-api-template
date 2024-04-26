@@ -4,7 +4,24 @@ from sqlalchemy.orm import Session
 import string
 import random
 
-DATABASE_URL = "sqlite:///olist.db"
+from sqlalchemy import create_engine
+from dotenv import load_dotenv
+import os
+
+def connect_to_postgres():
+    load_dotenv()
+    # Define your PostgreSQL connection parameters
+    hostname = os.environ.get("SERVER")
+    database = os.environ.get("DATABASE")
+    username = os.environ.get("POSTGRES_USER")
+    password = os.environ.get("PASSWORD")
+
+    # Create a connection to the PostgreSQL database
+    connection_string = f"postgresql://{username}:{password}@{hostname}/{database}"
+
+    engine = create_engine(connection_string)
+
+    return engine
 
 class Base(DeclarativeBase):
     pass
@@ -22,7 +39,7 @@ class DBpredictions(Base):
     model: Mapped[str]
 
 
-engine = create_engine(DATABASE_URL)
+engine = connect_to_postgres()
 session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base.metadata.create_all(bind=engine)
 

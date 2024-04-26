@@ -10,3 +10,5 @@ echo $SERVER
 # Connect to Azure SQL Server and execute the SQL script
 export PGPASSWORD=$PASSWORD 
 psql -h $SERVER -d $DATABASE -U $POSTGRES_USER 
+
+# \dt list all tables

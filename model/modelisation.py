@@ -7,7 +7,7 @@ def modelisation(connection,run_name, start_date = "2017-01-01", end_date = "201
 
     modelisation_query = f"""
     SELECT score, produit_recu, temps_livraison
-    FROM {run_name}_TrainingDataset
+    FROM {run_name}_trainingdataset
     """
 
     

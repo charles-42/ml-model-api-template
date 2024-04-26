@@ -8,7 +8,7 @@ def data_cleaning(connection,run_name, start_date="2017-01-01",end_date="2018-01
     
     review_query = """
     SELECT order_id, review_score, review_creation_date 
-    FROM REVIEWS
+    FROM Reviews
     """
     
     df_reviews = pd.read_sql_query(review_query, connection)
@@ -28,7 +28,7 @@ def data_cleaning(connection,run_name, start_date="2017-01-01",end_date="2018-01
     order_query = """
     SELECT order_id, order_purchase_timestamp, order_delivered_customer_date, 
            order_estimated_delivery_date 
-    FROM ORDERS
+    FROM Orders
     """
 
     df_orders = pd.read_sql_query(order_query,connection)

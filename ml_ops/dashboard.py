@@ -3,9 +3,27 @@ import sqlite3
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sqlalchemy import create_engine
+from dotenv import load_dotenv
+import os
+
+def connect_to_postgres():
+    load_dotenv()
+    # Define your PostgreSQL connection parameters
+    hostname = os.environ.get("SERVER")
+    database = os.environ.get("DATABASE")
+    username = os.environ.get("POSTGRES_USER")
+    password = os.environ.get("PASSWORD")
+
+    # Create a connection to the PostgreSQL database
+    connection_string = f"postgresql://{username}:{password}@{hostname}/{database}"
+
+    engine = create_engine(connection_string)
+
+    return engine
 
 # Connexion à la base de données SQLite
-conn = sqlite3.connect('olist.db')
+conn = connect_to_postgres()
 
 # Fonction pour charger les données à partir de la base de données
 def load_data_prediction():
@@ -15,9 +33,9 @@ def load_data_prediction():
 
 def load_data_training(model_name):
     if model_name != "tous":
-        query = f"SELECT * FROM {model_name}_TrainingDataset;"
+        query = f"SELECT * FROM {model_name}_trainingdataset;"
     else:
-        query = f"SELECT * FROM first_run_2017_TrainingDataset;"
+        query = f"SELECT * FROM postgres_run_2017_trainingdataset;"
     df = pd.read_sql(query, conn)
     return df
 

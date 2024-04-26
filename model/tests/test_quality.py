@@ -3,6 +3,7 @@ import pandas as pd
 from model.data_cleaning import data_cleaning
 from model.feature_engineering import feature_engineering
 from model.modelisation import modelisation
+from model.utils import connect_to_postgres
 from unittest.mock import patch  # Import patch from unittest.mock
 import mlflow
 
@@ -61,8 +62,7 @@ def connection(run_name):
         return MockConnection()
     else:
         # Create a real connection
-        import sqlite3
-        connection = sqlite3.connect("olist.db")
+        connection = connect_to_postgres()
         return connection
     
 
@@ -82,7 +82,7 @@ def test_data_cleaning(connection,run_name, start_date, end_date):
 
         assert len(df_clean) == 3
     else:
-        df_clean = pd.read_sql_query(f"SELECT * FROM {run_name}_CleanDataset",connection)
+        df_clean = pd.read_sql_query(f"SELECT * FROM {run_name}_cleandataset",connection)
         df_clean.review_creation_date = pd.to_datetime(df_clean['review_creation_date'])
 
     assert len(df_clean) > 0
@@ -114,7 +114,7 @@ def test_feature_engineering(connection,run_name):
         with patch('pandas.read_sql_query', side_effect=mock_read_sql_query):
             df_feat = feature_engineering(connection,run_name)
     else:
-        df_feat = pd.read_sql_query(f"SELECT * FROM {run_name}_TrainingDataset",connection)
+        df_feat = pd.read_sql_query(f"SELECT * FROM {run_name}_trainingdataset",connection)
 
     assert set(df_feat.columns) == {'order_id', 'review_score','review_creation_date',
                                      'order_purchase_timestamp','order_delivered_customer_date','order_estimated_delivery_date',

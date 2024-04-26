@@ -1,5 +1,4 @@
 from .training import training
-import yaml
 
 # your_python_script.py
 

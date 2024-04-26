@@ -1,8 +1,7 @@
 def feature_engineering(connection,run_name):
     import pandas as pd
-    import sqlite3
 
-    df = pd.read_sql_query(f"SELECT * FROM {run_name}_CleanDataset",connection)
+    df = pd.read_sql_query(f"SELECT * FROM {run_name}_cleandataset",connection)
 
     df.review_creation_date = pd.to_datetime(df['review_creation_date'], 
                                              format= '%Y-%m-%d %H:%M:%S', 
