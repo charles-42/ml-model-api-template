@@ -1,0 +1,12 @@
+RESSOURCE_GROUP=your_ressource_group
+LOCATION=your_location 
+SERVER_NAME=your_server_name
+SERVER=your_server_name.postgres.database.azure.com
+DATABASE=your_db_name
+USERNAME=your_user_name
+POSTGRES_USER='your_user_name@your_server_name.postgres.database.azure.com'
+PASSWORD=your_password
+SUBSCRIPTION_ID=your_subscription_id
+WORKSPACE_NAME=your_workspace_name
+ML_FLOW_TRACKING_UI=your_mlflowtracking (you get it once workspace is created)
+SECRET_KEY = your_secret_key

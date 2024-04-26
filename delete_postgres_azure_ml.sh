@@ -12,5 +12,9 @@ az postgres server delete\
 --resource-group $RESSOURCE_GROUP \
 --name $SERVER_NAME
 
+az ml workspace delete \
+--resource-group $RESSOURCE_GROUP \
+--name $WORKSPACE_NAME
+
 az group delete \
 --name $RESSOURCE_GROUP
