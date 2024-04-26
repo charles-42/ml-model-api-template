@@ -1,9 +1,8 @@
 # main.py script
 from fastapi import Depends
-from api.utils import has_access
 from fastapi import APIRouter
 from fastapi.params import Depends
-from api.utils import has_access, SinglePredictionInput, SinglePredictionOutput, predict_single, get_model_path
+from api.utils import has_access, SinglePredictionInput, SinglePredictionOutput, predict_single, get_model
 from api.database import get_db,create_db_prediction
 from sqlalchemy.orm import Session
 import time
@@ -18,9 +17,9 @@ def predict(
     db: Session = Depends(get_db)
     ) -> SinglePredictionOutput:
 
-    model_name = "first_run_2017"
-    model_path = get_model_path(model_name)
-    prediction = predict_single(model_path, order)
+    model_name = "remote_run"
+    model = get_model(model_name)
+    prediction = predict_single(model, order)
 
     # MLops: Save prediction to database
     prediction_dict = {

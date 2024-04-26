@@ -4,13 +4,19 @@ def modelisation(connection,run_name, start_date = "2017-01-01", end_date = "201
     from sklearn.linear_model import LogisticRegression
     from sklearn.metrics import recall_score, accuracy_score, f1_score
     import mlflow
+    from dotenv import load_dotenv
+    import os
 
+    load_dotenv()
+
+
+    mlflow.set_tracking_uri(os.environ.get("ML_FLOW_TRACKING_UI"))
+    
     modelisation_query = f"""
     SELECT score, produit_recu, temps_livraison
     FROM {run_name}_trainingdataset
     """
 
-    
     df = pd.read_sql_query(modelisation_query,connection)
     # df = df.dropna()
 
@@ -61,5 +67,5 @@ def modelisation(connection,run_name, start_date = "2017-01-01", end_date = "201
     
 
 if __name__== "main":
-    import sqlite3
+
     connection = sqlite3.connect("olist.db")

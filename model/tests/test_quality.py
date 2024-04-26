@@ -3,7 +3,7 @@ import pandas as pd
 from model.data_cleaning import data_cleaning
 from model.feature_engineering import feature_engineering
 from model.modelisation import modelisation
-from model.utils import connect_to_postgres
+from model.utils import connect_to_postgres, get_run
 from unittest.mock import patch  # Import patch from unittest.mock
 import mlflow
 
@@ -128,6 +128,12 @@ def test_feature_engineering(connection,run_name):
 def test_modelisation(connection,run_name):
     import pickle
     import os
+    from dotenv import load_dotenv
+    from azureml.core import Run
+    load_dotenv()
+
+    mlflow.set_tracking_uri(os.environ.get("ML_FLOW_TRACKING_UI"))
+    
     from sklearn.linear_model import LogisticRegression
     if run_name == 'test_run':
             # Mocking the SQL query execution
@@ -135,19 +141,15 @@ def test_modelisation(connection,run_name):
             return connection.mock_training_data
         
         with patch('pandas.read_sql_query', side_effect=mock_read_sql_query):
-            run_id = modelisation(connection,run_name)
+            modelisation(connection,run_name)
+            run = get_run(run_name,"test_experiment")
     else:
-        experiment = mlflow.get_experiment_by_name("predict_review_score")
-        runs = mlflow.search_runs(experiment_ids=experiment.experiment_id)
-        # Filter runs by run name
-        filtered_runs = runs[runs['tags.mlflow.runName'] == run_name]
-        run_id = filtered_runs.iloc[0]['run_id']
-
+        run = get_run(run_name,"predict_review_score")
     
-    run = mlflow.get_run(run_id)
+
     assert run
     # Get run metrics
-    metrics = run.data.metrics
+    metrics = run.get_metrics()
     assert set(metrics.keys()) == {'accuracy_test', 'accuracy_train', 'f1_test', 'f1_train','recall_train','recall_test'}
     
 
@@ -156,15 +158,18 @@ def test_modelisation(connection,run_name):
         assert metrics['accuracy_test'] > 0.6
         # test for overfitting
         assert metrics['accuracy_train']- metrics['accuracy_test'] < 0.2
+    
+    model_uri = f"runs:/{run.id}/{run_name}"
+    loaded_model = mlflow.pyfunc.load_model(model_uri)
+    assert type(loaded_model) == mlflow.pyfunc.PyFuncModel
+    # artifact_uri = run.info.artifact_uri
 
-    artifact_uri = run.info.artifact_uri
+    # # Construct the path to the model pickle file within the artifacts directory
+    # modelel_pickle_path = os.path.join(artifact_uri.replace("file://", ""), run_name, "model.pkl")
 
-    # Construct the path to the model pickle file within the artifacts directory
-    modelel_pickle_path = os.path.join(artifact_uri.replace("file://", ""), run_name, "model.pkl")
-
-    with open(modelel_pickle_path, 'rb') as f:
-        model = pickle.load(f)
-        assert type(model) == LogisticRegression
+    # with open(modelel_pickle_path, 'rb') as f:
+    #     model = pickle.load(f)
+    #     assert type(model) == LogisticRegression
     
     if run_name == 'test_run':
-        mlflow.delete_run(run_id)
+        run.cancel()

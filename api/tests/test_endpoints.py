@@ -15,7 +15,7 @@ def valid_token(monkeypatch):
 @pytest.fixture(autouse=False)
 def mock_predict_single(monkeypatch):
     # Mock the jwt.decode function to return the mock payload
-    monkeypatch.setattr("api.main.predict_single", MagicMock(return_value=1))
+    monkeypatch.setattr("api.utils.predict_single", MagicMock(return_value=1))
 
 TEST_DATABASE_URL = "sqlite:///:memory:"
 

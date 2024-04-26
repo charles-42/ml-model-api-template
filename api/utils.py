@@ -37,10 +37,7 @@ class SinglePredictionInput(BaseModel):
 class SinglePredictionOutput(BaseModel):
     prediction: int
 
-def predict_single(model_path, order):
-
-    with open(model_path, 'rb') as file:
-        loaded_model = pickle.load(file)
+def predict_single(loaded_model, order):
 
     data = {'produit_recu':[order.produit_recu],
             'temps_livraison':[order.temps_livraison]}
@@ -50,15 +47,11 @@ def predict_single(model_path, order):
 
     return prediction[0]
 
-def get_model_path(model_run):
-    experiment = mlflow.get_experiment_by_name("predict_review_score")
-    runs = mlflow.search_runs(experiment_ids=experiment.experiment_id)
-    filtered_runs = runs[runs['tags.mlflow.runName'] == model_run]
-    run_id = filtered_runs.iloc[0]['run_id']
-    run = mlflow.get_run(run_id)
-    artifact_uri = run.info.artifact_uri
-    model_path = os.path.join(artifact_uri.replace("file://", ""), model_run, "model.pkl")
-    return model_path
+
+def get_model(run_name):
+    with open(f"api/{run_name}.pkl", 'rb') as file:
+             loaded_model = pickle.load(file)  
+    return loaded_model
 
 def generate_token(to_encode):
     load_dotenv()
