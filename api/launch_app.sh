@@ -14,5 +14,5 @@ else
     # Exécutez votre script Python alternatif
     python -m api.model_loader $model_name;
 fi
-
-uvicorn api.main:app --reload
+python -m api.main
+# uvicorn api.main:app 

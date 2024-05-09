@@ -3,12 +3,12 @@ set -o allexport
 source .env
 set +o allexport
 
-az postgres db delete\ 
+az postgres db delete \
 --resource-group $RESSOURCE_GROUP \
---server-name $SERVER_NAME\
+--server-name $SERVER_NAME \
 --name $DATABASE
 
-az postgres server delete\
+az postgres server delete \
 --resource-group $RESSOURCE_GROUP \
 --name $SERVER_NAME
 
