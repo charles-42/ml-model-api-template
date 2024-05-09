@@ -29,6 +29,7 @@ jobs:
       with:
         azcliversion: 2.0.72
         inlineScript: |
+          az account set --subscription ${{ secrets.SUBSCRIPTION_ID }}
           az container create \
             --resource-group ${{ secrets.RESSOURCE_GROUP }} \
             --name api_m \
