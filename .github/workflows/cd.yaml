@@ -32,7 +32,7 @@ jobs:
           az account set --subscription ${{ secrets.SUBSCRIPTION_ID }}
           az container create \
             --resource-group ${{ secrets.RESSOURCE_GROUP }} \
-            --name api_m \
+            --name apimodeletemplate2 \
             --image ${{ secrets.DOCKERHUB_USERNAME }}/api_modele:latest \
             --cpu 1 \
             --memory 1 \
@@ -47,7 +47,7 @@ jobs:
               "DATABASE=${{ secrets.DATABASE }}" \
               "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" \
               "PASSWORD=${{ secrets.PASSWORD }}" \
-              "SECRET_KEY=${{ secrets.SECRET_KEY }}" \
+              "SECRET_KEY=${{ secrets.SECRET_KEY }}" 
 
 
 
