@@ -1,10 +1,7 @@
 name: Docker-ACI-CD
 
 on:
-  push:
-    branches:
-      - main  # ou toute autre branche que vous souhaitez surveiller pour les changements
-
+  [push]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
