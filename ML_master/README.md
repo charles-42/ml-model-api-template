@@ -1,0 +1,1 @@
+Ceci est un script de création du package ML_master qui inclut tout les fonctions presents dans utils.py
