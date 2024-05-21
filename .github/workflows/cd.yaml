@@ -25,9 +25,9 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
     - name: Create Azure Container Instance
-      uses: azure/CLI@v1
+      uses: azure/CLI@v2
       with:
-        azcliversion: 2.0.72
+        azcliversion: 2.61.0
         inlineScript: |
           az account set --subscription ${{secrets.SUBSCRIPTION_ID}}    
           az container create \
