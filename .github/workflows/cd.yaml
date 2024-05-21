@@ -37,16 +37,17 @@ jobs:
             --cpu 1 \
             --memory 1 \
             --ip-address public \
+            --dns-name-label apimodeletemplate2 \
             --ports 80 8000
             --environment-variables \
-              "SUBSCRIPTION_ID"=${{ secrets.SUBSCRIPTION_ID }} \
-              "RESSOURCE_GROUP"=${{ secrets.RESSOURCE_GROUP }} \
-              "WORKSPACE_NAME"=${{ secrets.WORKSPACE_NAME }} \
-              "SERVER"=${{ secrets.SERVER }} \
-              "DATABASE"=${{ secrets.DATABASE }} \
-              "POSTGRES_USER"=${{ secrets.POSTGRES_USER }} \
-              "PASSWORD"=${{ secrets.PASSWORD }} \
-              "SECRET_KEY"=${{ secrets.SECRET_KEY }} 
+            "SUBSCRIPTION_ID"=${{ secrets.SUBSCRIPTION_ID }} \
+            "RESSOURCE_GROUP"=${{ secrets.RESSOURCE_GROUP }} \
+            "WORKSPACE_NAME"=${{ secrets.WORKSPACE_NAME }} \
+            "SERVER"=${{ secrets.SERVER }} \
+            "DATABASE"=${{ secrets.DATABASE }} \
+            "POSTGRES_USER"=${{ secrets.POSTGRES_USER }} \
+            "PASSWORD"=${{ secrets.PASSWORD }} \
+            "SECRET_KEY"=${{ secrets.SECRET_KEY }} 
 
     - name: Get ACI FQDN
       id: getFQDN
