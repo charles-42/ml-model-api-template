@@ -13,11 +13,11 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    # - name: Build and Push Docker Image
-    #   run: |
-    #     docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/api_modele:latest ./api
-    #     echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-    #     docker push ${{ secrets.DOCKERHUB_USERNAME }}/api_modele:latest
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/api_modele:latest ./api
+        echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/api_modele:latest
 
     - name: Azure Login
       uses: azure/login@v1
@@ -29,19 +29,19 @@ jobs:
       with:
         azcliversion: 2.61.0
         inlineScript: |
-          az account set --subscription ${{secrets.SUBSCRIPTION_ID}}    
+          az account set --subscription ${{ secrets.SUBSCRIPTION_ID }}    
           az container create \
-            --resource-group ${{env.RESSOURCE_GROUP}} \
+            --resource-group ${{ secrets.RESSOURCE_GROUP }} \
             --name apimodeletemplate2 \
-            --image ${{secrets.DOCKERHUB_USERNAME}}/api_modele:latest \
+            --image ${{ secrets.DOCKERHUB_USERNAME }}/api_modele:latest \
             --cpu 1 \
             --memory 1 \
             --ip-address public \
             --dns-name-label apimodeletemplate2 \
             --ports 80 8000
             --environment-variables \
-            "SUBSCRIPTION_ID"=${{secrets.SUBSCRIPTION_ID}} \
-            "RESSOURCE_GROUP"=${{ env.RESSOURCE_GROUP }} \
+            "SUBSCRIPTION_ID"=${{ secrets.SUBSCRIPTION_ID }} \
+            "RESSOURCE_GROUP"=${{ secrets.RESSOURCE_GROUP }} \
             "WORKSPACE_NAME"=${{ secrets.WORKSPACE_NAME }} \
             "SERVER"=${{ secrets.SERVER }} \
             "DATABASE"=${{ secrets.DATABASE }} \
