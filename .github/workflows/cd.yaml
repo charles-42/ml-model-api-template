@@ -38,7 +38,7 @@ jobs:
             --memory 1 \
             --ip-address public \
             --dns-name-label apimodeletemplate2 \
-            --ports 80 8000
+            --ports 80 8000 \
             --environment-variables \
             "SUBSCRIPTION_ID"=${{ secrets.SUBSCRIPTION_ID }} \
             "RESSOURCE_GROUP"=${{ secrets.RESSOURCE_GROUP }} \
