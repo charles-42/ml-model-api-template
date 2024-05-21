@@ -29,40 +29,37 @@ jobs:
       with:
         azcliversion: 2.0.72
         inlineScript: |
-          az account set --subscription ${{ secrets.SUBSCRIPTION_ID }}
-        
-        # az container create \
-        #   --resource-group ${{ secrets.RESSOURCE_GROUP }} \
-        #   --name apimodeletemplate2 \
-        #   --image ${{ secrets.DOCKERHUB_USERNAME }}/api_modele:latest \
-        #   --cpu 1 \
-        #   --memory 1 \
-        #   --ip-address public \
-        #   --ports 80
-        #   --port 8000:8000
-        #   --environment-variables \
-        #     "SUBSCRIPTION_ID=${{ secrets.SUBSCRIPTION_ID }}" \
-        #     "RESSOURCE_GROUP"=${{ secrets.RESSOURCE_GROUP }}" \
-        #     "WORKSPACE_NAME"=${{ secrets.WORKSPACE_NAME }}" \
-        #     "SERVER=${{ secrets.SERVER }}" \
-        #     "DATABASE=${{ secrets.DATABASE }}" \
-        #     "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" \
-        #     "PASSWORD=${{ secrets.PASSWORD }}" \
-        #     "SECRET_KEY=${{ secrets.SECRET_KEY }}" 
+          az account set --subscription ${{ secrets.SUBSCRIPTION_ID }}    
+          az container create \
+            --resource-group ${{ secrets.RESSOURCE_GROUP }} \
+            --name apimodeletemplate2 \
+            --image ${{ secrets.DOCKERHUB_USERNAME }}/api_modele:latest \
+            --cpu 1 \
+            --memory 1 \
+            --ip-address public \
+            --ports 80
+            --port 8000:8000
+            --environment-variables \
+              "SUBSCRIPTION_ID=${{ secrets.SUBSCRIPTION_ID }}" \
+              "RESSOURCE_GROUP"=${{ secrets.RESSOURCE_GROUP }}" \
+              "WORKSPACE_NAME"=${{ secrets.WORKSPACE_NAME }}" \
+              "SERVER=${{ secrets.SERVER }}" \
+              "DATABASE=${{ secrets.DATABASE }}" \
+              "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" \
+              "PASSWORD=${{ secrets.PASSWORD }}" \
+              "SECRET_KEY=${{ secrets.SECRET_KEY }}" 
 
+    - name: Get ACI FQDN
+      id: getFQDN
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+          echo "::set-output name=fqdn::$(az container show \
+            --resource-group ${{ secrets.RESSOURCE_GROUP }} \
+            --name apimodeletemplate2 \
+            --query ipAddress.fqdn \
+            --output tsv)"
 
-
-  # - name: Get ACI FQDN
-  #   id: getFQDN
-  #   uses: azure/CLI@v1
-  #   with:
-  #     azcliversion: 2.0.72
-  #     inlineScript: |
-  #       echo "::set-output name=fqdn::$(az container show \
-  #         --resource-group ${{ secrets.RESSOURCE_GROUP }} \
-  #         --name api_m \
-  #         --query ipAddress.fqdn \
-  #         --output tsv)"
-
-  # - name: Test Endpoint
-  #   run: curl -I ${{ steps.getFQDN.outputs.fqdn }}
+    - name: Test Endpoint
+      run: curl -I ${{ steps.getFQDN.outputs.fqdn }}
