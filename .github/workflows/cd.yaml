@@ -41,8 +41,8 @@ jobs:
             --cpu 1 \
             --memory 1 \
             --ip-address public \
-            --ports 80 \
-            --ports 8000:8000 \
+            --ports 80
+            --port 8000:8000
             --environment-variables \
               "SUBSCRIPTION_ID=${{ secrets.SUBSCRIPTION_ID }}" \
               "RESSOURCE_GROUP"=${{ secrets.RESSOURCE_GROUP }}" \
