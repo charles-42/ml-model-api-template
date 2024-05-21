@@ -29,15 +29,27 @@ jobs:
       with:
         azcliversion: 2.61.0
         inlineScript: |
-          az account set --subscription ${{ secrets.SUBSCRIPTION_ID }}    
+          az account set --subscription ${{ secrets.SUBSCRIPTION_ID }}
+          
+          # Check if the container exists
+          container_exists=$(az container show --resource-group ${{ secrets.RESOURCE_GROUP }} --name apimodeletemplate --query "name" -o tsv || echo "notfound")
+    
+          if [ "$container_exists" != "notfound" ]; then
+            echo "Container instance exists. Deleting..."
+            az container delete --resource-group ${{ secrets.RESOURCE_GROUP }} --name apimodeletemplate --yes
+            echo "Container instance deleted."
+          else
+            echo "Container instance does not exist."
+          fi
+    
           az container create \
             --resource-group ${{ secrets.RESSOURCE_GROUP }} \
-            --name apimodeletemplate2 \
+            --name apimodeletemplate \
             --image ${{ secrets.DOCKERHUB_USERNAME }}/api_modele:latest \
             --cpu 1 \
             --memory 1 \
             --ip-address public \
-            --dns-name-label apimodeletemplate2 \
+            --dns-name-label apimodeletemplate \
             --ports 80 8000 \
             --environment-variables \
             "SUBSCRIPTION_ID"=${{ secrets.SUBSCRIPTION_ID }} \
@@ -47,21 +59,7 @@ jobs:
             "DATABASE"=${{ secrets.DATABASE }} \
             "POSTGRES_USER"=${{ secrets.POSTGRES_USER }} \
             "PASSWORD"=${{ secrets.PASSWORD }} \
-            "SECRET_KEY"=${{ secrets.SECRET_KEY }} \
-            --debug
-
-
-    - name: Get ACI FQDN
-      id: getFQDN
-      uses: azure/CLI@v1
-      with:
-        azcliversion: 2.0.72
-        inlineScript: |
-          echo "::set-output name=fqdn::$(az container show \
-            --resource-group ${{ secrets.RESSOURCE_GROUP }} \
-            --name apimodeletemplate2 \
-            --query ipAddress.fqdn \
-            --output tsv)"
+            "SECRET_KEY"=${{ secrets.SECRET_KEY }}
 
     - name: Test Endpoint
-      run: curl -I ${{ steps.getFQDN.outputs.fqdn }}
+      run: curl -I apimodeletemplate.francecentral.azurecontainer.io:8000/docs
