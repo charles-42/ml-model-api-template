@@ -8,13 +8,6 @@ on:
       - 'api/**'
       - '.github/workflows/cd.yaml'
 
-  pull_request:
-    branches:
-      - main  
-    paths:
-      - 'api/**'
-      - '.github/workflows/cd.yaml'
-
 jobs:
   health-check-job:
     uses: ./.github/workflows/ci.yaml

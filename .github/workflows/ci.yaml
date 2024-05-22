@@ -3,7 +3,15 @@
 
     # triggers for our workflow
     on:
-        [push,workflow_call]
+        push:
+            branches:
+                - 'feat/**'
+                - 'develop'
+        pull_request:
+            types: [opened, synchronize, reopened]
+            branches:
+                - main
+        workflow_call:
 
     #  jobs definition
     jobs:
