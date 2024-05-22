@@ -1,16 +1,23 @@
 name: Docker-ACI-CD
 
 on:
+  push:
+    branches:
+      - main  
+    paths:
+      - 'api/**'
+
   pull_request:
     branches:
       - main  
     paths:
-      - 'api/**' # Specify the path to the app4prod directory
+      - 'api/**'
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    needs: [health-check-job]
+    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
