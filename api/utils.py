@@ -10,6 +10,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 
 async def has_access(credentials: HTTPAuthorizationCredentials = Depends(HTTPBearer())):
+    """ Check if the user has access to the endpoint. """
     token = credentials.credentials
     load_dotenv()
     SECRET_KEY = os.environ.get("SECRET_KEY")
