@@ -40,11 +40,6 @@ class DBpredictions(Base):
     prediction: Mapped[int]
     model: Mapped[str]
 
-
-engine = connect_to_postgres()
-session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base.metadata.create_all(bind=engine)
-
 # Dependency to get the database session
 
 
@@ -69,3 +64,9 @@ def create_db_prediction(prediction: dict, session: Session) -> DBpredictions:
     session.commit()
     session.refresh(db_prediction)
     return db_prediction
+
+
+if __name__ == '__main__':
+    engine = connect_to_postgres()
+    session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    Base.metadata.create_all(bind=engine)

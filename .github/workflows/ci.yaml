@@ -12,9 +12,7 @@
             runs-on: ubuntu-latest # os for running the job
             
             env:
-                SECRET_KEY: 'notsecret'
-                DJANGO_ENV: 'development'
-                ALLOWED_HOSTS: '*'
+                SECRET_KEY: ${{ secrets.SECRET_KEY }}
             
             steps:
                 - name: Checkout code # checking our the code at current commit that triggers the workflow
