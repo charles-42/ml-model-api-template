@@ -3,7 +3,7 @@
 
     # triggers for our workflow
     on:
-        [push]
+        [push,workflow_call]
 
     #  jobs definition
     jobs:
