@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 import os
 
 
-def connect_to_postgres():
+def connect_to_postgres(): 
     load_dotenv()
     # Define your PostgreSQL connection parameters
     hostname = os.environ.get("SERVER")
