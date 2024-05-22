@@ -1,5 +1,5 @@
     # name of our workflow
-    name: Django CI Workflow
+    name: Fastapi Continuous Integration workflow
 
     # triggers for our workflow
     on:

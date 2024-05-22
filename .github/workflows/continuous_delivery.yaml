@@ -1,4 +1,4 @@
-name: Docker-ACI-CD
+name: Fast API continuous deployment workflow
 
 on:
   pull_request:
@@ -6,11 +6,11 @@ on:
       - main  
     paths:
       - 'api/**'
-      - '.github/workflows/cd.yaml'
+      - '.github/workflows/continuous_delivery.yaml'
 
 jobs:
   health-check-job:
-    uses: ./.github/workflows/ci.yaml
+    uses: ./.github/workflows/continuous_integration.yaml
 
   build-and-deploy:
     needs: [health-check-job]
