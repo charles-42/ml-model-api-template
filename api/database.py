@@ -18,8 +18,7 @@ def connect_to_postgres():
     password = os.environ.get("PASSWORD")
 
     # Create a connection to the PostgreSQL database
-    connection_string = f"postgresql://{
-        username}:{password}@{hostname}/{database}"
+    connection_string = f"postgresql://{username}:{password}@{hostname}/{database}"
 
     engine = create_engine(connection_string)
 
