@@ -1,4 +1,4 @@
-name: Fast API continuous deployment workflow
+name: Fast API continuous delivery workflow
 
 on:
   pull_request:
