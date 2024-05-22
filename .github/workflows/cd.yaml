@@ -1,7 +1,12 @@
 name: Docker-ACI-CD
 
 on:
-  [push]
+  pull_request:
+    branches:
+      - main  
+    paths:
+      - 'api/**' # Specify the path to the app4prod directory
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
