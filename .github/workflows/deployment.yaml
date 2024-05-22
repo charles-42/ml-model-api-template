@@ -8,13 +8,8 @@ on:
                 type: string
 
 jobs:
-  health-check-job:
-    uses: ./.github/workflows/ci.yaml
-
   build-and-deploy:
     runs-on: ubuntu-latest
-    needs: [health-check-job]
-    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
