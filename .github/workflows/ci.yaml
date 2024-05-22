@@ -36,7 +36,10 @@
     
                 - name: Install requirements # install application requirements
                   run: pip install -r api/requirements.txt
-    
+                
+                - name: Install Bandit
+                  run: pip install bandit
+
                 - name: Run Security Check
                   run: bandit -r api
                   continue-on-error: true

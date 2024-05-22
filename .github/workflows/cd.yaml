@@ -6,12 +6,14 @@ on:
       - main  
     paths:
       - 'api/**'
+      - '.github/**'
 
   pull_request:
     branches:
       - main  
     paths:
       - 'api/**'
+      - '.github/**'
 
 jobs:
   build-and-deploy:
