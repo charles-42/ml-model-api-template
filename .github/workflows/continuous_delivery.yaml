@@ -11,12 +11,14 @@ on:
 jobs:
   health-check-job:
     uses: ./.github/workflows/continuous_integration.yaml
+    secrets: inherit
 
   build-and-deploy:
     needs: [health-check-job]
     uses: ./.github/workflows/deployment.yaml
     with:
         app_name: apimodeletemplatetest
+    secrets: inherit
 
   delete-resources:
     runs-on: ubuntu-latest
