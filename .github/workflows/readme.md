@@ -6,12 +6,15 @@
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Setup and Configuration](#setup-and-configuration)
-  - [CI Workflow](#ci-workflow)
+  - [Continuous Integration Workflow](#continuous-integration-workflow)
     - [Triggers](#triggers)
     - [Jobs and Steps](#jobs-and-steps)
-  - [CD Workflow](#cd-workflow)
+  - [Continuous Delivery Workflow](#continuous-delivery-workflow)
     - [Triggers](#triggers-1)
     - [Jobs and Steps](#jobs-and-steps-1)
+  - [Continuous Deployment Workflow](#continuous-deployment-workflow)
+    - [Triggers](#triggers-2)
+    - [Jobs and Steps](#jobs-and-steps-2)
 
 ## Introduction
 
@@ -41,11 +44,11 @@ To add these secrets:
 3. Click on **New repository secret**.
 4. Add each secret with the appropriate values.
 
-## CI Workflow
+## Continuous Integration Workflow
 
 ### Triggers
 
-The CI workflow is triggered on every push to the repository.
+The CI workflow is triggered on every push to features branch or develop branch
 
 
 ### Jobs and Steps
@@ -53,9 +56,22 @@ The CI workflow is triggered on every push to the repository.
 Job: Health Check
 This job ensures the code quality and correctness through unittesting, code formatting checks and code security check
 
-## CD Workflow
+## Continuous Delivery Workflow
 ### Triggers
-The CD workflow is triggered on pushes and pull requests to the main branch for specific paths.
+The Continuous delivery workflow is triggered on pull requests on develop and main branches and on push on develop branch
+
+paths:
+    - 'api/**'
+    - '.github/workflows/cd.yaml'
+
+### Jobs and Steps
+Job: Build and Deploy
+This job builds a Docker image, pushes it to Docker Hub, and deploys it to a test Azure Container Instance.
+Then it delete the ACRI
+
+## Continuous Deployment Workflow
+### Triggers
+The Continuous delivery workflow is triggered on pushes on the main branch.
 
 paths:
     - 'api/**'

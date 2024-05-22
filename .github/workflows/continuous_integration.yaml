@@ -10,7 +10,7 @@
         pull_request:
             types: [opened, synchronize, reopened]
             branches:
-                - main
+                - develop
         workflow_call:
 
     #  jobs definition

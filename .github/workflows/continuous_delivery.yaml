@@ -3,7 +3,8 @@ name: Fast API continuous delivery workflow
 on:
   pull_request:
     branches:
-      - main  
+      - main
+      - develop  
     paths:
       - 'api/**'
       - '.github/workflows/continuous_delivery.yaml'
