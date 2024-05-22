@@ -29,7 +29,8 @@ ws = Workspace(subscription_id=subscription_id,
                workspace_name=workspace_name)
 
 experiment = Experiment(ws, "predict_review_score")
-run = next(run for run in experiment.get_runs() if run.tags['mlflow.runName'] == run_name)
+run = next(run for run in experiment.get_runs()
+           if run.tags['mlflow.runName'] == run_name)
 model_uri = f"runs:/{run.id}/{run_name}"
 mlflow.set_tracking_uri(os.getenv("ML_FLOW_TRACKING_UI"))
 loaded_model = mlflow.pyfunc.load_model(model_uri)

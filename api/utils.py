@@ -1,4 +1,4 @@
-from fastapi import  HTTPException, status, Depends
+from fastapi import HTTPException, status, Depends
 from jose import JWTError, jwt
 import os
 from pydantic import BaseModel
@@ -34,13 +34,15 @@ class SinglePredictionInput(BaseModel):
     produit_recu: int
     temps_livraison: int
 
+
 class SinglePredictionOutput(BaseModel):
     prediction: int
 
+
 def predict_single(loaded_model, order):
 
-    data = {'produit_recu':[order.produit_recu],
-            'temps_livraison':[order.temps_livraison]}
+    data = {'produit_recu': [order.produit_recu],
+            'temps_livraison': [order.temps_livraison]}
     df_to_predict = pd.DataFrame(data)
 
     prediction = loaded_model.predict(df_to_predict)
@@ -50,8 +52,9 @@ def predict_single(loaded_model, order):
 
 def get_model(run_name):
     with open(f"api/{run_name}.pkl", 'rb') as file:
-             loaded_model = pickle.load(file)  
+        loaded_model = pickle.load(file)
     return loaded_model
+
 
 def generate_token(to_encode):
     load_dotenv()
@@ -60,7 +63,6 @@ def generate_token(to_encode):
     to_encode_dict = {"sub": to_encode}
     encoded_jwt = jwt.encode(to_encode_dict, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
-
 
 
 if __name__ == "__main__":
