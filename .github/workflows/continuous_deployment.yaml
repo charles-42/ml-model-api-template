@@ -1,0 +1,20 @@
+name: Docker-ACI-CD
+
+on:
+  push:
+    branches:
+      - main  
+    paths:
+      - 'api/**'
+      - '.github/workflows/cd.yaml'
+
+jobs:
+  health-check-job:
+    uses: ./.github/workflows/ci.yaml
+
+  build-and-deploy:
+    needs: [health-check-job]
+    uses: ./.github/deployment.yaml
+    with:
+        app_name: apimodeletemplate
+    
