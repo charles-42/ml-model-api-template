@@ -39,9 +39,9 @@
                 - name: Install requirements # install application requirements
                   run: pip install -r api/requirements.txt
     
-                # - name: Check Syntax # check code formatting
-                #   run: pycodestyle --statistics --ignore=E501,E712 api
-    
+                - name: Check Syntax # check code formatting
+                  run: pycodestyle --statistics --ignore=E501,E712 api
+                  continue-on-error: true
     
                 - name: Run Test and Coverage # running tests
                   working-directory: ./api
