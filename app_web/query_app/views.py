@@ -13,11 +13,11 @@ def main_view(request):
         if form.is_valid():
             produit_recu = form.cleaned_data['produit_recu']
             temps_livraison = form.cleaned_data['temps_livraison']
+            app_name = os.getenv("APP_NAME")
             # Requête à l'API
-            url = 'http://apimodeletemplate.francecentral.azurecontainer.io:8000/predict'  # Remplacez par l'URL de votre API
+            url = f'http://{app_name}.francecentral.azurecontainer.io:8000/predict'  # Remplacez par l'URL de votre API
             api_token = os.getenv("TOKEN")
             headers = {'Authorization': f'Bearer {api_token}'}
-            print(headers)
             params = {'produit_recu': produit_recu, 'temps_livraison': temps_livraison}
             response = requests.post(url, headers=headers, json=params)
             if response.status_code == 200:

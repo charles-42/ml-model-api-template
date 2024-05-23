@@ -2,6 +2,7 @@ set -o allexport
 source .env
 set +o allexport
 
+# Warning: you need to update the path ./api to the path of your dockerfile
 docker build -t model_api:latest ./api
 
 docker run -p 8000:8000 \
