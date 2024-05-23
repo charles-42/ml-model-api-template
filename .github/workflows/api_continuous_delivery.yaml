@@ -7,16 +7,16 @@ on:
       - develop  
     paths:
       - 'api/**'
-      - '.github/workflows/continuous_delivery.yaml'
+      - '.github/workflows/api_continuous_delivery.yaml'
 
 jobs:
   health-check-job:
-    uses: ./.github/workflows/continuous_integration.yaml
+    uses: ./.github/workflows/api_continuous_integration.yaml
     secrets: inherit
 
   build-and-deploy:
     needs: [health-check-job]
-    uses: ./.github/workflows/deployment.yaml
+    uses: ./.github/workflows/api_deployment.yaml
     with:
         app_name: apimodeletemplatetest
     secrets: inherit
