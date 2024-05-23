@@ -7,10 +7,16 @@
             branches:
                 - 'feat/**'
                 - 'develop'
+            paths:
+                - 'api/**'
+                - '.github/workflows/api_continuous_integration.yaml'
         pull_request:
             types: [opened, synchronize, reopened]
             branches:
                 - develop
+            paths:
+              - 'api/**'
+              - '.github/workflows/api_continuous_integration.yaml'
         workflow_call:
 
     #  jobs definition
