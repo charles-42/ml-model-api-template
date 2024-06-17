@@ -19,9 +19,9 @@ def connect_to_postgres():
 
     # Create a connection to the PostgreSQL database
     connection_string = f"postgresql://{username}:{password}@{hostname}/{database}"
-
+    print(connection_string)
     engine = create_engine(connection_string)
-
+    print(engine)
     return engine
 
 
@@ -44,6 +44,9 @@ class DBpredictions(Base):
 
 
 def get_db():
+    engine = connect_to_postgres()
+    session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    Base.metadata.create_all(bind=engine)
     database = session_local()
     try:
         yield database
@@ -66,7 +69,7 @@ def create_db_prediction(prediction: dict, session: Session) -> DBpredictions:
     return db_prediction
 
 
-if __name__ == '__main__':
-    engine = connect_to_postgres()
-    session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-    Base.metadata.create_all(bind=engine)
+# if __name__ == '__main__':
+#     engine = connect_to_postgres()
+#     session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+#     Base.metadata.create_all(bind=engine)

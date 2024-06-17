@@ -5,7 +5,7 @@ on:
     branches:
       - main  
     paths:
-      - 'api/**'
+      - 'app_web/**'
       - '.github/workflows/app_web_continuous_deployment.yaml'
 
 jobs:

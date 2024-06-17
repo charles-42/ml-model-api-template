@@ -8,6 +8,9 @@
                 - 'feat/**'
                 - 'develop'
                 - 'main' # to remove after testing
+            paths:
+                - 'app_web/**'
+                - '.github/workflows/app_web_continuous_deployment.yaml'
         pull_request:
             types: [opened, synchronize, reopened]
             branches:
