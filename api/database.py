@@ -44,6 +44,7 @@ class DBpredictions(Base):
 
 
 def get_db():
+    #update the connection string
     engine = connect_to_postgres()
     session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     Base.metadata.create_all(bind=engine)
