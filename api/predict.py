@@ -2,9 +2,9 @@
 from fastapi import Depends
 from fastapi import APIRouter
 from fastapi.params import Depends
+from api.opentelemetry_setup import tracer
 from api.utils import has_access, SinglePredictionInput, SinglePredictionOutput, predict_single, get_model
 from api.database import get_db, create_db_prediction
-from api.opentelemetry_setup import tracer
 from sqlalchemy.orm import Session
 import time
 
