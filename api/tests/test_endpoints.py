@@ -8,17 +8,17 @@ from typing import Generator
 from sqlalchemy import create_engine, StaticPool
 
 
-@pytest.fixture(autouse=False)
-def valid_token(monkeypatch):
-    # Mock the jwt.decode function to return the mock payload
-    monkeypatch.setattr("jose.jwt.decode", MagicMock(
-        return_value={"sub": "admin"}))
+# @pytest.fixture(autouse=False)
+# def valid_token(monkeypatch):
+#     # Mock the jwt.decode function to return the mock payload
+#     monkeypatch.setattr("jose.jwt.decode", MagicMock(
+#         return_value={"sub": "admin"}))
 
 
-@pytest.fixture(autouse=False)
-def mock_predict_single(monkeypatch):
-    # Mock the jwt.decode function to return the mock payload
-    monkeypatch.setattr("api.utils.predict_single", MagicMock(return_value=1))
+# @pytest.fixture(autouse=False)
+# def mock_predict_single(monkeypatch):
+#     # Mock the jwt.decode function to return the mock payload
+#     monkeypatch.setattr("api.utils.predict_single", MagicMock(return_value=1))
 
 
 # TEST_DATABASE_URL = "sqlite:///:memory:"
