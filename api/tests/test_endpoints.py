@@ -1,24 +1,24 @@
-# from fastapi.testclient import TestClient
-# from api.main import app
-# import pytest
-# from unittest.mock import MagicMock
-# from sqlalchemy.orm import sessionmaker, Session
-# from api.database import Base, DBpredictions, get_db
-# from typing import Generator
-# from sqlalchemy import create_engine, StaticPool
+from fastapi.testclient import TestClient
+from api.main import app
+import pytest
+from unittest.mock import MagicMock
+from sqlalchemy.orm import sessionmaker, Session
+from api.database import Base, DBpredictions, get_db
+from typing import Generator
+from sqlalchemy import create_engine, StaticPool
 
 
-# @pytest.fixture(autouse=False)
-# def valid_token(monkeypatch):
-#     # Mock the jwt.decode function to return the mock payload
-#     monkeypatch.setattr("jose.jwt.decode", MagicMock(
-#         return_value={"sub": "admin"}))
+@pytest.fixture(autouse=False)
+def valid_token(monkeypatch):
+    # Mock the jwt.decode function to return the mock payload
+    monkeypatch.setattr("jose.jwt.decode", MagicMock(
+        return_value={"sub": "admin"}))
 
 
-# @pytest.fixture(autouse=False)
-# def mock_predict_single(monkeypatch):
-#     # Mock the jwt.decode function to return the mock payload
-#     monkeypatch.setattr("api.utils.predict_single", MagicMock(return_value=1))
+@pytest.fixture(autouse=False)
+def mock_predict_single(monkeypatch):
+    # Mock the jwt.decode function to return the mock payload
+    monkeypatch.setattr("api.utils.predict_single", MagicMock(return_value=1))
 
 
 # TEST_DATABASE_URL = "sqlite:///:memory:"
