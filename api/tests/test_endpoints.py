@@ -1,11 +1,14 @@
-from fastapi.testclient import TestClient
-# from api.main import app
+
+import api.opentelemetry_setup
+from api.main import app
 import pytest
+from fastapi.testclient import TestClient
 from unittest.mock import MagicMock
 from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy import create_engine, StaticPool
 # from api.database import Base, DBpredictions, get_db
 from typing import Generator
-from sqlalchemy import create_engine, StaticPool
+
 
 
 # @pytest.fixture(autouse=False)
