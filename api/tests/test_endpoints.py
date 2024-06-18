@@ -1,6 +1,6 @@
 
 import api.opentelemetry_setup
-from api.main import app
+# from api.main import app
 import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import MagicMock
