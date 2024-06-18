@@ -7,9 +7,11 @@ from fastapi.params import Depends
 from api.utils import has_access
 import sys
 import uvicorn
+from api.opentelemetry_setup import init_tracing
 
 app = FastAPI()
 
+init_tracing(app)
 # routes
 PROTECTED = [Depends(has_access)]
 
