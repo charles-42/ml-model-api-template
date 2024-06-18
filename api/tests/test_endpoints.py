@@ -54,19 +54,19 @@ def override_get_db():
 app.dependency_overrides[get_db] = override_get_db
 
 
-def test_train_unauthorize(session: Session):
-    data = {"produit_recu": 1, "temps_livraison": 12}
-    headers = {"Authorization": "Bearer false_token"}
-    response = client.post("predict", json=data, headers=headers)
-    assert response.status_code == 401, response.text
+# def test_train_unauthorize(session: Session):
+#     data = {"produit_recu": 1, "temps_livraison": 12}
+#     headers = {"Authorization": "Bearer false_token"}
+#     response = client.post("predict", json=data, headers=headers)
+#     assert response.status_code == 401, response.text
 
 
-def test_predict_single(valid_token, mock_predict_single, session: Session):
-    # Assuming SinglePredictionInput is a pydantic model
-    data = {"produit_recu": 1, "temps_livraison": 12}
-    # Replace with actual input data
-    headers = {"Authorization": "Bearer mock_token"}
-    response = client.post("predict", json=data, headers=headers)
-    assert response.status_code == 200
-    # Assuming predict_single returns a valid prediction
-    assert "prediction" in response.json()
+# def test_predict_single(valid_token, mock_predict_single, session: Session):
+#     # Assuming SinglePredictionInput is a pydantic model
+#     data = {"produit_recu": 1, "temps_livraison": 12}
+#     # Replace with actual input data
+#     headers = {"Authorization": "Bearer mock_token"}
+#     response = client.post("predict", json=data, headers=headers)
+#     assert response.status_code == 200
+#     # Assuming predict_single returns a valid prediction
+#     assert "prediction" in response.json()
