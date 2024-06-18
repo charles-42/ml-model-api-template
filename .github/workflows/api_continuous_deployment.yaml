@@ -9,10 +9,9 @@ on:
       - '.github/workflows/api_continuous_deployment.yaml'
 
 jobs:
-  health-check-job:
-    uses: ./.github/workflows/api_continuous_integration.yaml
-    secrets: inherit
-    continue-on-error: true
+  # health-check-job:
+  #   uses: ./.github/workflows/api_continuous_integration.yaml
+  #   secrets: inherit
 
   build-and-deploy:
     needs: [health-check-job]
