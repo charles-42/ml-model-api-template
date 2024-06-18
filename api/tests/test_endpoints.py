@@ -3,7 +3,7 @@ from api.main import app
 import pytest
 from unittest.mock import MagicMock
 from sqlalchemy.orm import sessionmaker, Session
-from api.database import Base, DBpredictions, get_db
+# from api.database import Base, DBpredictions, get_db
 from typing import Generator
 from sqlalchemy import create_engine, StaticPool
 
