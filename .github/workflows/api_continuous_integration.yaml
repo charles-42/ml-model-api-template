@@ -66,4 +66,3 @@
                 - name: Run Test and Coverage # running tests
                 #   working-directory: ./api
                   run: pytest api --cov-fail-under=80 -vv
-                  continue-on-error: true
