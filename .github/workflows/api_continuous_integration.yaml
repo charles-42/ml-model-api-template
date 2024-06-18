@@ -27,6 +27,7 @@
             
             env:
                 SECRET_KEY: ${{ secrets.SECRET_KEY }}
+                APPLICATIONINSIGHTS_CONNECTION_STRING: ${{ secrets.APPLICATIONINSIGHTS_CONNECTION_STRING }}
             
             steps:
                 - name: Checkout code # checking our the code at current commit that triggers the workflow
