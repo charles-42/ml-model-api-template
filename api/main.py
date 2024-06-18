@@ -7,7 +7,8 @@ from fastapi.params import Depends
 from api.utils import has_access
 import sys
 import uvicorn
-from api.opentelemetry_setup import init_tracing
+from api.opentelemetry_setup import init_tracing, tracer
+import api.opentelemetry_setup
 
 app = FastAPI()
 
