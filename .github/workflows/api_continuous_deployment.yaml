@@ -14,7 +14,7 @@ jobs:
   #   secrets: inherit
 
   build-and-deploy:
-    needs: [health-check-job]
+    # needs: [health-check-job]
     uses: ./.github/workflows/api_deployment.yaml
     with:
         app_name: apimodeletemplate
