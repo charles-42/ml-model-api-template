@@ -16,6 +16,8 @@ load_dotenv()
 APPLICATIONINSIGHTS_CONNECTION_STRING=os.getenv('APPLICATIONINSIGHTS_CONNECTION_STRING')
 # Create a Resource object with the cloud.role attribute
 
+raise ValueError(f"APPLICATIONINSIGHTS_CONNECTION_STRING is not set,{APPLICATIONINSIGHTS_CONNECTION_STRING}")
+
 if APPLICATIONINSIGHTS_CONNECTION_STRING:
     # SET UP TRACE EXPORTER
     trace_exporter = AzureMonitorTraceExporter(
@@ -27,6 +29,7 @@ if APPLICATIONINSIGHTS_CONNECTION_STRING:
 
     trace.set_tracer_provider(tracer_provider)
     tracer = trace.get_tracer(__name__)
+
 def init_tracing(app):
     # Instrument FastAPI
     FastAPIInstrumentor.instrument_app(app)
