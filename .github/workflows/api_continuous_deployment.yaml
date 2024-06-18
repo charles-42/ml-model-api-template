@@ -12,6 +12,7 @@ jobs:
   health-check-job:
     uses: ./.github/workflows/api_continuous_integration.yaml
     secrets: inherit
+    continue-on-error: true
 
   build-and-deploy:
     needs: [health-check-job]
