@@ -1,57 +1,57 @@
-from fastapi.testclient import TestClient
-from api.main import app
-import pytest
-from unittest.mock import MagicMock
-from sqlalchemy.orm import sessionmaker, Session
-from api.database import Base, DBpredictions, get_db
-from typing import Generator
-from sqlalchemy import create_engine, StaticPool
+# from fastapi.testclient import TestClient
+# from api.main import app
+# import pytest
+# from unittest.mock import MagicMock
+# from sqlalchemy.orm import sessionmaker, Session
+# from api.database import Base, DBpredictions, get_db
+# from typing import Generator
+# from sqlalchemy import create_engine, StaticPool
 
 
-@pytest.fixture(autouse=False)
-def valid_token(monkeypatch):
-    # Mock the jwt.decode function to return the mock payload
-    monkeypatch.setattr("jose.jwt.decode", MagicMock(
-        return_value={"sub": "admin"}))
+# @pytest.fixture(autouse=False)
+# def valid_token(monkeypatch):
+#     # Mock the jwt.decode function to return the mock payload
+#     monkeypatch.setattr("jose.jwt.decode", MagicMock(
+#         return_value={"sub": "admin"}))
 
 
-@pytest.fixture(autouse=False)
-def mock_predict_single(monkeypatch):
-    # Mock the jwt.decode function to return the mock payload
-    monkeypatch.setattr("api.utils.predict_single", MagicMock(return_value=1))
+# @pytest.fixture(autouse=False)
+# def mock_predict_single(monkeypatch):
+#     # Mock the jwt.decode function to return the mock payload
+#     monkeypatch.setattr("api.utils.predict_single", MagicMock(return_value=1))
 
 
-TEST_DATABASE_URL = "sqlite:///:memory:"
+# TEST_DATABASE_URL = "sqlite:///:memory:"
 
-engine = create_engine(TEST_DATABASE_URL, connect_args={
-                       "check_same_thread": False}, poolclass=StaticPool)
-TestingSessionLocal = sessionmaker(
-    autocommit=False, autoflush=False, bind=engine)
-
-
-@pytest.fixture
-def session() -> Generator[Session, None, None]:
-    Base.metadata.create_all(bind=engine)
-    db_session = TestingSessionLocal()
-
-    yield db_session
-
-    db_session.close()
-    Base.metadata.drop_all(bind=engine)
+# engine = create_engine(TEST_DATABASE_URL, connect_args={
+#                        "check_same_thread": False}, poolclass=StaticPool)
+# TestingSessionLocal = sessionmaker(
+#     autocommit=False, autoflush=False, bind=engine)
 
 
-client = TestClient(app)
+# @pytest.fixture
+# def session() -> Generator[Session, None, None]:
+#     Base.metadata.create_all(bind=engine)
+#     db_session = TestingSessionLocal()
 
-# Dependency to override the get_db dependency in the main app
+#     yield db_session
+
+#     db_session.close()
+#     Base.metadata.drop_all(bind=engine)
 
 
-def override_get_db():
-    database = TestingSessionLocal()
-    yield database
-    database.close()
+# client = TestClient(app)
+
+# # Dependency to override the get_db dependency in the main app
 
 
-app.dependency_overrides[get_db] = override_get_db
+# def override_get_db():
+#     database = TestingSessionLocal()
+#     yield database
+#     database.close()
+
+
+# app.dependency_overrides[get_db] = override_get_db
 
 
 # def test_train_unauthorize(session: Session):
