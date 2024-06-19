@@ -15,8 +15,7 @@ load_dotenv()
 
 ENV = os.getenv('ENV')
 
-# if ENV in ['dev', 'prod']:
-if True:
+if ENV in ['dev', 'prod']:
     # SET UP CONNECTION STRING
     APPLICATIONINSIGHTS_CONNECTION_STRING=os.getenv('APPLICATIONINSIGHTS_CONNECTION_STRING')
     # Create a Resource object with the cloud.role attribute
@@ -36,3 +35,9 @@ if True:
         # Instrument FastAPI
         FastAPIInstrumentor.instrument_app(app)
         app.add_middleware(OpenTelemetryMiddleware)
+else:
+    def init_tracing(app):
+        pass
+    tracer_provider = TracerProvider()
+    trace.set_tracer_provider(tracer_provider)
+    tracer = trace.get_tracer(__name__)

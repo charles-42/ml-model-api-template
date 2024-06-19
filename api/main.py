@@ -9,19 +9,12 @@ from fastapi.params import Depends
 from api.utils import has_access
 import sys
 import uvicorn
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-ENV = os.getenv('ENV')
-
+from api.opentelemetry_setup import init_tracing
 
 
 app = FastAPI()
 
-if ENV in ['dev', 'prod']:
-    from api.opentelemetry_setup import init_tracing
-    init_tracing(app)
+init_tracing(app)
 # routes
 PROTECTED = [Depends(has_access)]
 

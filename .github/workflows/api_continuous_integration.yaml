@@ -63,10 +63,6 @@
                   run: pycodestyle --statistics --ignore=E501,E712 api
                   continue-on-error: true
     
-                - name: Set environment variables
-                  run: |
-                    echo "APPLICATIONINSIGHTS_CONNECTION_STRING=${{ secrets.APPLICATIONINSIGHTS_CONNECTION_STRING }}" >> $GITHUB_ENV
-
                 - name: Run Test and Coverage # running tests
                 #   working-directory: ./api
                   run: pytest api --cov-fail-under=80 -vv
