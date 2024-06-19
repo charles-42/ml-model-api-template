@@ -32,9 +32,6 @@
             steps:
                 - name: Checkout code # checking our the code at current commit that triggers the workflow
                   uses: actions/checkout@v2
-    
-                - name: Debug environment variables
-                  run: printenv | grep APPLICATIONINSIGHTS_CONNECTION_STRING
 
                 - name: Cache dependency # caching dependency will make our build faster.
                   uses: actions/cache@v2 # for more info checkout pip section documentation at https://github.com/actions/cache
@@ -69,3 +66,5 @@
                 - name: Run Test and Coverage # running tests
                 #   working-directory: ./api
                   run: pytest api --cov-fail-under=80 -vv
+                  env:
+                    APPLICATIONINSIGHTS_CONNECTION_STRING: ${{ secrets.APPLICATIONINSIGHTS_CONNECTION_STRING }}
