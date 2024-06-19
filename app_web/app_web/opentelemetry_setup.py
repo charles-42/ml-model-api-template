@@ -29,7 +29,7 @@ APPLICATIONINSIGHTS_CONNECTION_STRING=os.getenv('APPLICATIONINSIGHTS_CONNECTION_
 trace_exporter = AzureMonitorTraceExporter(
     connection_string=APPLICATIONINSIGHTS_CONNECTION_STRING
 )
-resource = Resource(attributes={"cloud.role": "DjangoApplication"})
+resource = Resource(attributes={"cloud.role": "DjangoApplication","service.name":"DjangoApplication"})
 tracer_provider = TracerProvider(resource=resource)
 tracer_provider.add_span_processor(BatchSpanProcessor(trace_exporter))
 
