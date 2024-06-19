@@ -1,5 +1,5 @@
 
-# # import api.opentelemetry_setup
+import api.opentelemetry_setup
 # # from api.main import app
 # import pytest
 # from fastapi.testclient import TestClient
