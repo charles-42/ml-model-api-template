@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://charles-42.github.io/ml-model-api-template/api/database_utils/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Database Utils - Template for ML API</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Database Utils";
+        var mkdocs_page_input_path = "api/database_utils.md";
+        var mkdocs_page_url = "/ml-model-api-template/api/database_utils/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Template for ML API
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Accueil</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >API</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../utils/">Utils</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Database Utils</a>
+    <ul class="current">
+    </ul>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mkdocs/tutorial/">Mkdocs tutorial (French)</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Template for ML API</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Documentation</li>
+          <li class="breadcrumb-item">API</li>
+      <li class="breadcrumb-item active">Database Utils</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/charles-42/ml-model-api-template/edit/master/docs/api/database_utils.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="doc doc-object doc-module">
+
+
+
+<a id="api.database"></a>
+    <div class="doc doc-contents first">
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="api.database.Base" class="doc doc-heading">
+            <code>Base</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="sqlalchemy.orm.DeclarativeBase">DeclarativeBase</span></code></p>
+
+
+      <p>Base class for SQLAlchemy ORM models.</p>
+
+              <details class="quote">
+                <summary>Source code in <code>api/database.py</code></summary>
+                <pre class="highlight"><code class="language-python">class Base(DeclarativeBase):
+    """Base class for SQLAlchemy ORM models."""
+    pass</code></pre>
+              </details>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="api.database.DBpredictions" class="doc doc-heading">
+            <code>DBpredictions</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="api.database.Base" href="#api.database.Base">Base</a></code></p>
+
+
+      <p>ORM model for the 'predictions' table.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Attributes:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>prediction_id</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Primary key, unique identifier for the prediction.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>timestamp</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Timestamp of the prediction.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>produit_recu</code></b>
+                  (<code>int</code>)
+              –
+              <div class="doc-md-description">
+                <p>Quantity of the received product.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>temps_livraison</code></b>
+                  (<code>int</code>)
+              –
+              <div class="doc-md-description">
+                <p>Delivery time.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>prediction</code></b>
+                  (<code>int</code>)
+              –
+              <div class="doc-md-description">
+                <p>The prediction value.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>model</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>The model used for the prediction.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+              <details class="quote">
+                <summary>Source code in <code>api/database.py</code></summary>
+                <pre class="highlight"><code class="language-python">class DBpredictions(Base):
+    """
+    ORM model for the 'predictions' table.
+
+    Attributes:
+        prediction_id (str): Primary key, unique identifier for the prediction.
+        timestamp (str): Timestamp of the prediction.
+        produit_recu (int): Quantity of the received product.
+        temps_livraison (int): Delivery time.
+        prediction (int): The prediction value.
+        model (str): The model used for the prediction.
+    """
+    __tablename__ = "predictions"
+
+    prediction_id: Mapped[str] = mapped_column(primary_key=True, index=True)
+    timestamp: Mapped[str]
+    produit_recu: Mapped[int]
+    temps_livraison: Mapped[int]
+    prediction: Mapped[int]
+    model: Mapped[str]</code></pre>
+              </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="api.database.connect_to_postgres" class="doc doc-heading">
+            <code class="highlight language-python">connect_to_postgres()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Connect to a PostgreSQL database using environment variables.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b><code>engine</code></b>              –
+              <div class="doc-md-description">
+                <p>SQLAlchemy engine instance for the PostgreSQL connection.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>api/database.py</code></summary>
+              <pre class="highlight"><code class="language-python">def connect_to_postgres(): 
+    """
+    Connect to a PostgreSQL database using environment variables.
+
+    Returns:
+        engine: SQLAlchemy engine instance for the PostgreSQL connection.
+    """
+    load_dotenv()
+    # Define your PostgreSQL connection parameters
+    hostname = os.environ.get("SERVER")
+    database = os.environ.get("DATABASE")
+    username = os.environ.get("POSTGRES_USER")
+    password = os.environ.get("PASSWORD")
+
+    # Create a connection to the PostgreSQL database
+    connection_string = f"postgresql://{username}:{password}@{hostname}/{database}"
+    print(connection_string)
+    engine = create_engine(connection_string)
+    print(engine)
+    return engine</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="api.database.create_db_prediction" class="doc doc-heading">
+            <code class="highlight language-python">create_db_prediction(prediction, session)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Create a new prediction record in the database.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>prediction</code></b>
+                  (<code>dict</code>)
+              –
+              <div class="doc-md-description">
+                <p>A dictionary containing prediction details.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>session</code></b>
+                  (<code><span title="sqlalchemy.orm.Session">Session</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>SQLAlchemy session object.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b><code>DBpredictions</code></b>(                  <code><a class="autorefs autorefs-internal" title="api.database.DBpredictions" href="#api.database.DBpredictions">DBpredictions</a></code>
+)              –
+              <div class="doc-md-description">
+                <p>The newly created DBpredictions object.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>api/database.py</code></summary>
+              <pre class="highlight"><code class="language-python">def create_db_prediction(prediction: dict, session: Session) -&gt; DBpredictions:
+    """
+    Create a new prediction record in the database.
+
+    Args:
+        prediction (dict): A dictionary containing prediction details.
+        session (Session): SQLAlchemy session object.
+
+    Returns:
+        DBpredictions: The newly created DBpredictions object.
+    """
+    db_prediction = DBpredictions(**prediction, prediction_id=generate_id())
+    session.add(db_prediction)
+    session.commit()
+    session.refresh(db_prediction)
+    return db_prediction</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="api.database.generate_id" class="doc doc-heading">
+            <code class="highlight language-python">generate_id()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Generate a unique string ID.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b><code>str</code></b>              –
+              <div class="doc-md-description">
+                <p>A randomly generated unique string ID.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>api/database.py</code></summary>
+              <pre class="highlight"><code class="language-python">def generate_id():
+    """
+    Generate a unique string ID.
+
+    Returns:
+        str: A randomly generated unique string ID.
+    """
+    length = 14
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for i in range(length))</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="api.database.get_db" class="doc doc-heading">
+            <code class="highlight language-python">get_db()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Dependency to get the database session.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Yields:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b></code>Session</code></b>              –
+              <div class="doc-md-description">
+                <p>SQLAlchemy database session.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>api/database.py</code></summary>
+              <pre class="highlight"><code class="language-python">def get_db():
+    """
+    Dependency to get the database session.
+
+    Yields:
+        Session: SQLAlchemy database session.
+    """
+    engine = connect_to_postgres()
+    session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    Base.metadata.create_all(bind=engine)
+    database = session_local()
+    try:
+        yield database
+    finally:
+        database.close()</code></pre>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../utils/" class="btn btn-neutral float-left" title="Utils"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../mkdocs/tutorial/" class="btn btn-neutral float-right" title="Mkdocs tutorial (French)">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/charles-42/ml-model-api-template" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../utils/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../mkdocs/tutorial/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

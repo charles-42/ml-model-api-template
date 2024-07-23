@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" /><link rel="canonical" href="https://charles-42.github.io/ml-model-api-template/" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Template for ML API</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Accueil";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = "/ml-model-api-template/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> Template for ML API
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Accueil</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#purpose">Purpose</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#train-a-new-model">Train a new model</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#launch-the-api">Launch the API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-streamlit-ml-ops-dashboard">Use Streamlit ML-OPS Dashboard</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >API</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="api/introduction/">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="api/utils/">Utils</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="api/database_utils/">Database Utils</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mkdocs/tutorial/">Mkdocs tutorial (French)</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">Template for ML API</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Accueil</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/charles-42/ml-model-api-template/edit/master/docs/index.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="data-api-template">data-api-template</h1>
+<h2 id="purpose">Purpose</h2>
+<p>The objective of this project is to provide a standard template for creating a data API. </p>
+<p>It includes:</p>
+<ul>
+<li>The procedure for building a Postgres SQL database on Azure and procedure for importing data.</li>
+<li>A machine learning model including pytest quality tests and mlflow tracking on azure</li>
+<li>An API (FastAPI) with token-based authentication and Ml-ops Monitoring</li>
+<li>A Streamlit dashboard to expose Ml-ops Monitoring</li>
+</ul>
+<h2 id="dependencies">Dependencies:</h2>
+<ul>
+<li>poetry</li>
+<li>azure CLI</li>
+<li>azure ml CLI</li>
+<li>psql</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<ol>
+<li>Create virtual environement and install requierements:</li>
+</ol>
+<pre><code class="language-bash">
+poetry install
+
+</code></pre>
+<ol>
+<li>
+<p>Create .env file using env_template.txt</p>
+</li>
+<li>
+<p>To create the Olist database, execute these commands:</p>
+</li>
+</ol>
+<pre><code class="language-bash">chmod +x ./database/azure_postgres/create_postgres.sh
+./database/azure_postgres/create_postgres.sh
+
+chmod +x ./database/azure_postgres/create_tables.sh
+./database/azure_postgres/create_tables.sh
+
+chmod +x ./database/azure_postgres/import_postgres.sh
+./database/azure_postgres/import_postgres.sh
+</code></pre>
+<ol>
+<li>You can execute tests to make sure the setup is good:</li>
+</ol>
+<pre><code class="language-bash">pytest
+</code></pre>
+<h2 id="train-a-new-model">Train a new model</h2>
+<p>You can update training functions and then use ./model/train.sh to train a new model. (Don't forget to change run_name)</p>
+<h2 id="launch-the-api">Launch the API</h2>
+<ol>
+<li>Get your token:</li>
+</ol>
+<pre><code class="language-bash">poetry run python -m api.utils
+</code></pre>
+<ol>
+<li>Update model_name in ./api/launch_app.sh and then you can execute it</li>
+</ol>
+<h2 id="use-streamlit-ml-ops-dashboard">Use Streamlit ML-OPS Dashboard</h2>
+<p>Execute this command</p>
+<pre><code class="language-bash">poetry run streamlit run ml_ops/dashboard.py
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="api/introduction/" class="btn btn-neutral float-right" title="Introduction">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/charles-42/ml-model-api-template" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+      <span><a href="api/introduction/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.6.0
+Build Date UTC : 2024-07-23 13:35:42.704514+00:00
+-->
