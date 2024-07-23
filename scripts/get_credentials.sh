@@ -7,8 +7,7 @@ az account set --subscription $SUBSCRIPTION_ID
 
 # find a unique name if you have the error: not enough privilege
 az ad sp create-for-rbac \
-    --name myApp \ 
-    --role contributor \
+    --name problem_management13 --role contributor \
     --scopes /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESSOURCE_GROUP \
     --json-auth
 

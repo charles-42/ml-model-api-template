@@ -1,31 +1,40 @@
-# Set up Azure Monitor
-from django.shortcuts import render
-from opentelemetry import metrics, trace, context
-from opentelemetry.sdk.metrics import MeterProvider
-from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
-from azure.monitor.opentelemetry.exporter import AzureMonitorMetricExporter
-from opentelemetry.sdk.trace import TracerProvider, Span
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
-import logging
-from opentelemetry.sdk._logs import LoggerProvider, LoggingHandler
-from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
-from azure.monitor.opentelemetry.exporter import AzureMonitorLogExporter
-from opentelemetry.sdk.resources import Resource
-from opentelemetry._logs import set_logger_provider
-
+# SET UP CONNECTION STRING
 from dotenv import load_dotenv
 import os
-
 load_dotenv()
-
-# SET UP CONNECTION STRING
 APPLICATIONINSIGHTS_CONNECTION_STRING=os.getenv('APPLICATIONINSIGHTS_CONNECTION_STRING')
 
-# Create a Resource object with the cloud.role attribute
+
+# PART 1 : SET UP LOGGING EXPORTER
+import logging
+from opentelemetry.sdk._logs import LoggerProvider, LoggingHandler
+from opentelemetry._logs import set_logger_provider
+from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
+from azure.monitor.opentelemetry.exporter import AzureMonitorLogExporter
+
+exporter = AzureMonitorLogExporter(
+    connection_string=APPLICATIONINSIGHTS_CONNECTION_STRING
+)
+
+logger_provider = LoggerProvider()
+set_logger_provider(logger_provider)
+logger_provider.add_log_record_processor(BatchLogRecordProcessor(exporter))
+
+# Attach LoggingHandler to namespaced logger
+handler = LoggingHandler()
+logger = logging.getLogger(__name__)
+logger.addHandler(handler)
+
+logger.setLevel(logging.INFO)
 
 
-# SET UP TRACE EXPORTER
+# PART 2 : SET UP TRACE EXPORTER
+from opentelemetry import trace
+from opentelemetry.sdk.resources import Resource
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
+
 trace_exporter = AzureMonitorTraceExporter(
     connection_string=APPLICATIONINSIGHTS_CONNECTION_STRING
 )
@@ -37,7 +46,21 @@ trace.set_tracer_provider(tracer_provider)
 tracer = trace.get_tracer(__name__)
 
 
-# SET UP METRICS EXPORTER
+# PART 3 : Instrument Django and Request for automatic HTTP logging and tracing
+from opentelemetry.instrumentation.django import DjangoInstrumentor
+DjangoInstrumentor().instrument()
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
+RequestsInstrumentor().instrument()
+
+
+
+
+# PART 4 : SET UP METRICS EXPORTER
+from opentelemetry import metrics
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
+from azure.monitor.opentelemetry.exporter import AzureMonitorMetricExporter
+
 metric_exporter = AzureMonitorMetricExporter(
     connection_string=APPLICATIONINSIGHTS_CONNECTION_STRING
 )
@@ -51,23 +74,3 @@ meter = metrics.get_meter_provider().get_meter("satisfaction_metrics")
 prediction_counter_per_minute = meter.create_counter("prediction_counter_per_minute")
 
 
-# Instrument Django
-from opentelemetry.instrumentation.django import DjangoInstrumentor
-DjangoInstrumentor().instrument()
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
-RequestsInstrumentor().instrument()
-
-# SET UP LOGGING EXPORTER
-logger_provider = LoggerProvider()
-set_logger_provider(logger_provider)
-
-exporter = AzureMonitorLogExporter(
-    connection_string=APPLICATIONINSIGHTS_CONNECTION_STRING
-)
-logger_provider.add_log_record_processor(BatchLogRecordProcessor(exporter))
-
-# Attach LoggingHandler to namespaced logger
-handler = LoggingHandler()
-logger = logging.getLogger(__name__)
-logger.addHandler(handler)
-logger.setLevel(logging.INFO)
