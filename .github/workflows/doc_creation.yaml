@@ -39,7 +39,7 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        remote_repo="https://x-access-token:${GITHUB_TOKEN}@github.com/charles-42/ml-model-api-template.git"
+        remote_repo="https://${GITHUB_TOKEN}@github.com/charles-42/ml-model-api-template.git"
         git remote rm origin
-        git remote add origin "${remote_repo}"
+        git remote add origin ${remote_repo}
         mkdocs gh-deploy --force
