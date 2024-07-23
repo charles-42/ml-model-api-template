@@ -6,7 +6,7 @@ nav:
           - Introduction: api/introduction.md
           - Utils: api/utils.md
           - Database Utils: api/database_utils.md
-      - Mkdocs(French): mkdocs/tutorial.md
+      - Mkdocs tutorial (French): mkdocs/tutorial.md
 theme:
   name: readthedocs
 

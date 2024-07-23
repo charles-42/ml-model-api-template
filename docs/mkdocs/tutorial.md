@@ -1,5 +1,7 @@
 # Utilisation de mkdocs
 
+## I Créer la documentation
+
 ### 1. Installer les librairies pythons mkdocs, mkdocstrings et mkdocstrings-python
 
 ### 2. Créer un fichier mkdocs.yml à la racine du projet pour configurer la doc
@@ -51,3 +53,25 @@ ln -s ../external_docs/intro.md docs/intro.md
 ```
 
 Cette commande crée un lien symbolique nommé intro.md dans le répertoire docs pointant vers ../external_docs/intro.md.
+
+## II Publier la documentation sur github pages
+
+### 1. En local créer la branche qui va accueillir la doc (le html et css générés automatiquement notamment)
+
+```bash
+git branch -M gh-pages
+git push -f origin gh-pages
+ ```
+
+### 2. Configurer GitHub Pages
+
+- Accédez à votre dépôt sur GitHub.
+- Allez dans "Settings".
+- Dans la section "Pages", sélectionnez la branche gh-pages comme source et roots Cliquez sur "Save".
+
+### 3. Construisez votre doc et déployer votre code sur la branch:
+
+```bash
+ mkdocs build    
+ mkdocs gh-deploy --force
+ ```
