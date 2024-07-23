@@ -13,33 +13,33 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Deploy docs
-      uses: mhausenblas/mkdocs-deploy-gh-pages@nomaterial
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        CONFIG_FILE: mkdocs.yml
-        REQUIREMENTS: docs/requirements.txt
-
-
-
-    # - name: Set up Python
-    #   uses: actions/setup-python@v2
-    #   with:
-    #     python-version: '3.x'
-
-    # - name: Install dependencies
-    #   run: |
-    #     python -m pip install --upgrade pip
-    #     pip install mkdocs mkdocstrings mkdocstrings-python
-
-    # - name: Build documentation
-    #   run: mkdocs build
-
-    # - name: Deploy to GitHub Pages
+    # - name: Deploy docs
+    #   uses: mhausenblas/mkdocs-deploy-gh-pages@nomaterial
     #   env:
-    #       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   run: |
-    #     git config --global user.name 'github-actions[bot]'
-    #     git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-    #     git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
-    #     mkdocs gh-deploy --force
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     CONFIG_FILE: mkdocs.yml
+    #     REQUIREMENTS: docs/requirements.txt
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install mkdocs mkdocstrings mkdocstrings-python
+
+    - name: Build documentation
+      run: mkdocs build
+
+    - name: Deploy to GitHub Pages
+      env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        remote_repo="https://x-access-token:${GITHUB_TOKEN}@${GITHUB_DOMAIN:-"github.com"}/${{ github.repository }}"
+        git remote rm origin
+        git remote add origin "${remote_repo}"
+        mkdocs gh-deploy --force
