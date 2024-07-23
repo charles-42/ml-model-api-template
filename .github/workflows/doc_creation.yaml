@@ -1,4 +1,4 @@
-name: ci
+name: ci docs
 
 on:
   push:
@@ -37,8 +37,8 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git config --global user.name 'charles-42'
+        git config --global user.email 'charles-42@users.noreply.github.com'
         remote_repo="https://${{ secrets.GITHUB_TOKEN }}@github.com/charles-42/ml-model-api-template.git"
         git remote rm origin
         git remote add origin ${remote_repo}
