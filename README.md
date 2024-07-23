@@ -12,6 +12,8 @@ It includes:
 - An API (FastAPI) with token-based authentication and Ml-ops Monitoring
 - A Streamlit dashboard to expose Ml-ops Monitoring
 
+read the full documentation: [here](https://charles-42.github.io/ml-model-api-template/)
+
 ## Dependencies:
 - poetry
 - azure CLI
