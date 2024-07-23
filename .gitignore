@@ -2,6 +2,7 @@ olist.db
 ml_models/*.pkl
 mlruns/
 .vscode/
+*.tfvars
 
 staticfiles/
 # Byte-compiled / optimized / DLL files

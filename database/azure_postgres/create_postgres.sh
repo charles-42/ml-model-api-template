@@ -25,4 +25,4 @@ az postgres server create\
 az postgres db create --resource-group $RESSOURCE_GROUP --server $SERVER_NAME --name $DATABASE 
 
 
-az postgres server show --resource-group $RESSOURCE_GROUP --name $SERVER_NAME
+# az postgres server show --resource-group $RESSOURCE_GROUP --name $SERVER_NAME
