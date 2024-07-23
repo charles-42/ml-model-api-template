@@ -27,7 +27,9 @@ jobs:
       run: mkdocs build
 
     - name: Deploy to GitHub Pages
+      env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        mkdocs gh-deploy --force
+        mkdocs gh-deploy --force --remote-name origin --remote-branch gh-pages --token ${GH_TOKEN}
