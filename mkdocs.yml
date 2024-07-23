@@ -1,0 +1,25 @@
+site_name: "Template for ML API"
+nav:
+  - Accueil: index.md
+  - Documentation:
+      - API:
+          - Introduction: api/introduction.md
+          - Utils: api/utils.md
+          - Database Utils: api/database_utils.md
+      - Mkdocs(French): mkdocs/tutorial.md
+theme:
+  name: readthedocs
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            rendering:
+              show_source: true
+
+# Configuration de déploiement pour GitHub Pages
+site_url: https://charles-42.github.io/ml-model-api-template/
+repo_url: https://github.com/charles-42/ml-model-api-template

@@ -38,6 +38,9 @@ opentelemetry-exporter-otlp = "^1.25.0"
 psycopg2-binary = "^2.9.9"
 azure-monitor-opentelemetry = "^1.6.0"
 azure-monitor-opentelemetry-exporter = "^1.0.0b26"
+mkdocs = "^1.6.0"
+mkdocstrings = "^0.25.1"
+mkdocstrings-python = "^1.10.5"
 
 
 [build-system]

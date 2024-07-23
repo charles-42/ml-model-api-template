@@ -1,4 +1,3 @@
-# main.py script
 from fastapi import Depends
 from fastapi import APIRouter
 from fastapi.params import Depends
@@ -15,9 +14,20 @@ router = APIRouter()
 @router.post("", response_model=SinglePredictionOutput)
 def predict(
     order: SinglePredictionInput,
-    authenticated: bool = [Depends(has_access)],
+    authenticated: bool = Depends(has_access),
     db: Session = Depends(get_db)
 ) -> SinglePredictionOutput:
+    """
+    Predict the output based on the input order and save the prediction to the database.
+
+    Args:
+        order (SinglePredictionInput): The input data for making the prediction.
+        authenticated (bool): Whether the user is authenticated. Default is dependent on has_access.
+        db (Session): The database session.
+
+    Returns:
+        SinglePredictionOutput: The prediction result.
+    """
     with tracer.start_as_current_span("predict"):
         model_name = "remote_run"
         model = get_model(model_name)
