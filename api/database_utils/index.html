@@ -125,9 +125,12 @@
 
               <details class="quote">
                 <summary>Source code in <code>api/database.py</code></summary>
-                <pre class="highlight"><code class="language-python">class Base(DeclarativeBase):
-    """Base class for SQLAlchemy ORM models."""
-    pass</code></pre>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for SQLAlchemy ORM models.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
               </details>
 
     </div>
@@ -218,26 +221,46 @@
 </table>
               <details class="quote">
                 <summary>Source code in <code>api/database.py</code></summary>
-                <pre class="highlight"><code class="language-python">class DBpredictions(Base):
-    """
-    ORM model for the 'predictions' table.
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">DBpredictions</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ORM model for the &#39;predictions&#39; table.</span>
 
-    Attributes:
-        prediction_id (str): Primary key, unique identifier for the prediction.
-        timestamp (str): Timestamp of the prediction.
-        produit_recu (int): Quantity of the received product.
-        temps_livraison (int): Delivery time.
-        prediction (int): The prediction value.
-        model (str): The model used for the prediction.
-    """
-    __tablename__ = "predictions"
+<span class="sd">    Attributes:</span>
+<span class="sd">        prediction_id (str): Primary key, unique identifier for the prediction.</span>
+<span class="sd">        timestamp (str): Timestamp of the prediction.</span>
+<span class="sd">        produit_recu (int): Quantity of the received product.</span>
+<span class="sd">        temps_livraison (int): Delivery time.</span>
+<span class="sd">        prediction (int): The prediction value.</span>
+<span class="sd">        model (str): The model used for the prediction.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;predictions&quot;</span>
 
-    prediction_id: Mapped[str] = mapped_column(primary_key=True, index=True)
-    timestamp: Mapped[str]
-    produit_recu: Mapped[int]
-    temps_livraison: Mapped[int]
-    prediction: Mapped[int]
-    model: Mapped[str]</code></pre>
+    <span class="n">prediction_id</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">produit_recu</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">temps_livraison</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">prediction</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
               </details>
 
 
@@ -265,7 +288,7 @@
 
 
 <h2 id="api.database.connect_to_postgres" class="doc doc-heading">
-            <code class="highlight language-python">connect_to_postgres()</code>
+            <code class="highlight language-python"><span class="n">connect_to_postgres</span><span class="p">()</span></code>
 
 </h2>
 
@@ -298,26 +321,46 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>api/database.py</code></summary>
-              <pre class="highlight"><code class="language-python">def connect_to_postgres(): 
-    """
-    Connect to a PostgreSQL database using environment variables.
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">connect_to_postgres</span><span class="p">():</span> 
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Connect to a PostgreSQL database using environment variables.</span>
 
-    Returns:
-        engine: SQLAlchemy engine instance for the PostgreSQL connection.
-    """
-    load_dotenv()
-    # Define your PostgreSQL connection parameters
-    hostname = os.environ.get("SERVER")
-    database = os.environ.get("DATABASE")
-    username = os.environ.get("POSTGRES_USER")
-    password = os.environ.get("PASSWORD")
+<span class="sd">    Returns:</span>
+<span class="sd">        engine: SQLAlchemy engine instance for the PostgreSQL connection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">load_dotenv</span><span class="p">()</span>
+    <span class="c1"># Define your PostgreSQL connection parameters</span>
+    <span class="n">hostname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SERVER&quot;</span><span class="p">)</span>
+    <span class="n">database</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;DATABASE&quot;</span><span class="p">)</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;POSTGRES_USER&quot;</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PASSWORD&quot;</span><span class="p">)</span>
 
-    # Create a connection to the PostgreSQL database
-    connection_string = f"postgresql://{username}:{password}@{hostname}/{database}"
-    print(connection_string)
-    engine = create_engine(connection_string)
-    print(engine)
-    return engine</code></pre>
+    <span class="c1"># Create a connection to the PostgreSQL database</span>
+    <span class="n">connection_string</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;postgresql://</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">password</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">hostname</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">database</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">connection_string</span><span class="p">)</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">connection_string</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">engine</span>
+</code></pre></div></td></tr></table></div>
             </details>
     </div>
 
@@ -327,7 +370,7 @@
 
 
 <h2 id="api.database.create_db_prediction" class="doc doc-heading">
-            <code class="highlight language-python">create_db_prediction(prediction, session)</code>
+            <code class="highlight language-python"><span class="n">create_db_prediction</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">session</span><span class="p">)</span></code>
 
 </h2>
 
@@ -393,22 +436,38 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>api/database.py</code></summary>
-              <pre class="highlight"><code class="language-python">def create_db_prediction(prediction: dict, session: Session) -&gt; DBpredictions:
-    """
-    Create a new prediction record in the database.
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_db_prediction</span><span class="p">(</span><span class="n">prediction</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Session</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DBpredictions</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new prediction record in the database.</span>
 
-    Args:
-        prediction (dict): A dictionary containing prediction details.
-        session (Session): SQLAlchemy session object.
+<span class="sd">    Args:</span>
+<span class="sd">        prediction (dict): A dictionary containing prediction details.</span>
+<span class="sd">        session (Session): SQLAlchemy session object.</span>
 
-    Returns:
-        DBpredictions: The newly created DBpredictions object.
-    """
-    db_prediction = DBpredictions(**prediction, prediction_id=generate_id())
-    session.add(db_prediction)
-    session.commit()
-    session.refresh(db_prediction)
-    return db_prediction</code></pre>
+<span class="sd">    Returns:</span>
+<span class="sd">        DBpredictions: The newly created DBpredictions object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">db_prediction</span> <span class="o">=</span> <span class="n">DBpredictions</span><span class="p">(</span><span class="o">**</span><span class="n">prediction</span><span class="p">,</span> <span class="n">prediction_id</span><span class="o">=</span><span class="n">generate_id</span><span class="p">())</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">db_prediction</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">db_prediction</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">db_prediction</span>
+</code></pre></div></td></tr></table></div>
             </details>
     </div>
 
@@ -418,7 +477,7 @@
 
 
 <h2 id="api.database.generate_id" class="doc doc-heading">
-            <code class="highlight language-python">generate_id()</code>
+            <code class="highlight language-python"><span class="n">generate_id</span><span class="p">()</span></code>
 
 </h2>
 
@@ -451,16 +510,26 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>api/database.py</code></summary>
-              <pre class="highlight"><code class="language-python">def generate_id():
-    """
-    Generate a unique string ID.
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">generate_id</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a unique string ID.</span>
 
-    Returns:
-        str: A randomly generated unique string ID.
-    """
-    length = 14
-    characters = string.ascii_letters + string.digits
-    return ''.join(random.choice(characters) for i in range(length))</code></pre>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: A randomly generated unique string ID.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="mi">14</span>
+    <span class="n">characters</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">characters</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
             </details>
     </div>
 
@@ -470,7 +539,7 @@
 
 
 <h2 id="api.database.get_db" class="doc doc-heading">
-            <code class="highlight language-python">get_db()</code>
+            <code class="highlight language-python"><span class="n">get_db</span><span class="p">()</span></code>
 
 </h2>
 
@@ -503,21 +572,36 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>api/database.py</code></summary>
-              <pre class="highlight"><code class="language-python">def get_db():
-    """
-    Dependency to get the database session.
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_db</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dependency to get the database session.</span>
 
-    Yields:
-        Session: SQLAlchemy database session.
-    """
-    engine = connect_to_postgres()
-    session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-    Base.metadata.create_all(bind=engine)
-    database = session_local()
-    try:
-        yield database
-    finally:
-        database.close()</code></pre>
+<span class="sd">    Yields:</span>
+<span class="sd">        Session: SQLAlchemy database session.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">connect_to_postgres</span><span class="p">()</span>
+    <span class="n">session_local</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">autocommit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">autoflush</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+    <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+    <span class="n">database</span> <span class="o">=</span> <span class="n">session_local</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">database</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
             </details>
     </div>
 

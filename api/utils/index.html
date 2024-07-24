@@ -157,16 +157,26 @@
 </table>
               <details class="quote">
                 <summary>Source code in <code>api/utils.py</code></summary>
-                <pre class="highlight"><code class="language-python">class SinglePredictionInput(BaseModel):
-    """
-    Model for single prediction input.
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SinglePredictionInput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model for single prediction input.</span>
 
-    Attributes:
-        produit_recu (int): The quantity of the received product.
-        temps_livraison (int): The delivery time.
-    """
-    produit_recu: int
-    temps_livraison: int</code></pre>
+<span class="sd">    Attributes:</span>
+<span class="sd">        produit_recu (int): The quantity of the received product.</span>
+<span class="sd">        temps_livraison (int): The delivery time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">produit_recu</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">temps_livraison</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div></td></tr></table></div>
               </details>
 
 
@@ -233,14 +243,22 @@
 </table>
               <details class="quote">
                 <summary>Source code in <code>api/utils.py</code></summary>
-                <pre class="highlight"><code class="language-python">class SinglePredictionOutput(BaseModel):
-    """
-    Model for single prediction output.
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SinglePredictionOutput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model for single prediction output.</span>
 
-    Attributes:
-        prediction (int): The predicted value.
-    """
-    prediction: int</code></pre>
+<span class="sd">    Attributes:</span>
+<span class="sd">        prediction (int): The predicted value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prediction</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div></td></tr></table></div>
               </details>
 
 
@@ -268,7 +286,7 @@
 
 
 <h2 id="api.utils.generate_token" class="doc doc-heading">
-            <code class="highlight language-python">generate_token(to_encode)</code>
+            <code class="highlight language-python"><span class="n">generate_token</span><span class="p">(</span><span class="n">to_encode</span><span class="p">)</span></code>
 
 </h2>
 
@@ -325,22 +343,38 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>api/utils.py</code></summary>
-              <pre class="highlight"><code class="language-python">def generate_token(to_encode):
-    """
-    Generate a JWT token.
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">generate_token</span><span class="p">(</span><span class="n">to_encode</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a JWT token.</span>
 
-    Args:
-        to_encode (str): The string to encode in the token.
+<span class="sd">    Args:</span>
+<span class="sd">        to_encode (str): The string to encode in the token.</span>
 
-    Returns:
-        str: The generated JWT token.
-    """
-    load_dotenv()
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-    ALGORITHM = "HS256"
-    to_encode_dict = {"sub": to_encode}
-    encoded_jwt = jwt.encode(to_encode_dict, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt</code></pre>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The generated JWT token.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">load_dotenv</span><span class="p">()</span>
+    <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SECRET_KEY&quot;</span><span class="p">)</span>
+    <span class="n">ALGORITHM</span> <span class="o">=</span> <span class="s2">&quot;HS256&quot;</span>
+    <span class="n">to_encode_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sub&quot;</span><span class="p">:</span> <span class="n">to_encode</span><span class="p">}</span>
+    <span class="n">encoded_jwt</span> <span class="o">=</span> <span class="n">jwt</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">to_encode_dict</span><span class="p">,</span> <span class="n">SECRET_KEY</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">ALGORITHM</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">encoded_jwt</span>
+</code></pre></div></td></tr></table></div>
             </details>
     </div>
 
@@ -350,7 +384,7 @@
 
 
 <h2 id="api.utils.get_model" class="doc doc-heading">
-            <code class="highlight language-python">get_model(run_name)</code>
+            <code class="highlight language-python"><span class="n">get_model</span><span class="p">(</span><span class="n">run_name</span><span class="p">)</span></code>
 
 </h2>
 
@@ -407,19 +441,32 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>api/utils.py</code></summary>
-              <pre class="highlight"><code class="language-python">def get_model(run_name):
-    """
-    Load a model from a pickle file.
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span>
+<span class="normal">97</span>
+<span class="normal">98</span>
+<span class="normal">99</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">run_name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a model from a pickle file.</span>
 
-    Args:
-        run_name (str): The name of the model run.
+<span class="sd">    Args:</span>
+<span class="sd">        run_name (str): The name of the model run.</span>
 
-    Returns:
-        The loaded model.
-    """
-    with open(f"api/{run_name}.pkl", 'rb') as file:
-        loaded_model = pickle.load(file)
-    return loaded_model</code></pre>
+<span class="sd">    Returns:</span>
+<span class="sd">        The loaded model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;api/</span><span class="si">{</span><span class="n">run_name</span><span class="si">}</span><span class="s2">.pkl&quot;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">loaded_model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loaded_model</span>
+</code></pre></div></td></tr></table></div>
             </details>
     </div>
 
@@ -429,7 +476,7 @@
 
 
 <h2 id="api.utils.has_access" class="doc doc-heading">
-            <code class="highlight language-python">has_access(credentials=Depends(HTTPBearer()))</code>
+            <code class="highlight language-python"><span class="n">has_access</span><span class="p">(</span><span class="n">credentials</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">HTTPBearer</span><span class="p">()))</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -515,37 +562,68 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>api/utils.py</code></summary>
-              <pre class="highlight"><code class="language-python">async def has_access(credentials: HTTPAuthorizationCredentials = Depends(HTTPBearer())):
-    """
-    Validates the access token provided in the request headers.
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">has_access</span><span class="p">(</span><span class="n">credentials</span><span class="p">:</span> <span class="n">HTTPAuthorizationCredentials</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">HTTPBearer</span><span class="p">())):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validates the access token provided in the request headers.</span>
 
-    Args:
-        credentials (HTTPAuthorizationCredentials): The bearer token credentials.
+<span class="sd">    Args:</span>
+<span class="sd">        credentials (HTTPAuthorizationCredentials): The bearer token credentials.</span>
 
-    Returns:
-        bool: True if the user has access, otherwise raises HTTPException.
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if the user has access, otherwise raises HTTPException.</span>
 
-    Raises:
-        HTTPException: If the token is invalid or the user is not authorized.
-    """
-    token = credentials.credentials
-    load_dotenv()
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-    ALGORITHM = "HS256"
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-    except JWTError:
-        raise credentials_exception
-    if username == "admin":
-        return True
-    else:
-        raise credentials_exception</code></pre>
+<span class="sd">    Raises:</span>
+<span class="sd">        HTTPException: If the token is invalid or the user is not authorized.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">credentials</span>
+    <span class="n">load_dotenv</span><span class="p">()</span>
+    <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SECRET_KEY&quot;</span><span class="p">)</span>
+    <span class="n">ALGORITHM</span> <span class="o">=</span> <span class="s2">&quot;HS256&quot;</span>
+    <span class="n">credentials_exception</span> <span class="o">=</span> <span class="n">HTTPException</span><span class="p">(</span>
+        <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_401_UNAUTHORIZED</span><span class="p">,</span>
+        <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Could not validate credentials&quot;</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;WWW-Authenticate&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer&quot;</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">jwt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">SECRET_KEY</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="n">ALGORITHM</span><span class="p">])</span>
+        <span class="n">username</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sub&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">JWTError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">credentials_exception</span>
+    <span class="k">if</span> <span class="n">username</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">credentials_exception</span>
+</code></pre></div></td></tr></table></div>
             </details>
     </div>
 
@@ -555,7 +633,7 @@
 
 
 <h2 id="api.utils.predict_single" class="doc doc-heading">
-            <code class="highlight language-python">predict_single(loaded_model, order)</code>
+            <code class="highlight language-python"><span class="n">predict_single</span><span class="p">(</span><span class="n">loaded_model</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span></code>
 
 </h2>
 
@@ -619,24 +697,42 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>api/utils.py</code></summary>
-              <pre class="highlight"><code class="language-python">def predict_single(loaded_model, order):
-    """
-    Make a prediction using the loaded model and the input order.
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">predict_single</span><span class="p">(</span><span class="n">loaded_model</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a prediction using the loaded model and the input order.</span>
 
-    Args:
-        loaded_model: The pre-trained model.
-        order (SinglePredictionInput): The input data for making the prediction.
+<span class="sd">    Args:</span>
+<span class="sd">        loaded_model: The pre-trained model.</span>
+<span class="sd">        order (SinglePredictionInput): The input data for making the prediction.</span>
 
-    Returns:
-        int: The predicted value.
-    """
-    data = {'produit_recu': [order.produit_recu],
-            'temps_livraison': [order.temps_livraison]}
-    df_to_predict = pd.DataFrame(data)
+<span class="sd">    Returns:</span>
+<span class="sd">        int: The predicted value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;produit_recu&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">produit_recu</span><span class="p">],</span>
+            <span class="s1">&#39;temps_livraison&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">temps_livraison</span><span class="p">]}</span>
+    <span class="n">df_to_predict</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-    prediction = loaded_model.predict(df_to_predict)
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">loaded_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_to_predict</span><span class="p">)</span>
 
-    return prediction[0]</code></pre>
+    <span class="k">return</span> <span class="n">prediction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
             </details>
     </div>
 

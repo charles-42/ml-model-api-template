@@ -74,6 +74,8 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-deployer-en-local">6. deployer en local</a>
+    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#ii-publier-la-documentation-sur-github-pages">II Publier la documentation sur github pages</a>
@@ -81,6 +83,8 @@
     <li class="toctree-l3"><a class="reference internal" href="#1-en-local-creer-la-branche-qui-va-accueillir-la-doc-le-html-et-css-generes-automatiquement-notamment">1. En local créer la branche qui va accueillir la doc (le html et css générés automatiquement notamment)</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#2-configurer-github-pages">2. Configurer GitHub Pages</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-ajouter-au-yml">4. ajouter au yml</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#3-construisez-votre-doc-et-deployer-votre-code-sur-la-branch">3. Construisez votre doc et déployer votre code sur la branch:</a>
     </li>
@@ -154,6 +158,9 @@ plugins:
 <pre><code class="language-bash">ln -s ../external_docs/intro.md docs/intro.md
 </code></pre>
 <p>Cette commande crée un lien symbolique nommé intro.md dans le répertoire docs pointant vers ../external_docs/intro.md.</p>
+<h3 id="6-deployer-en-local">6. deployer en local</h3>
+<pre><code class="language-bash">mkdocs serve
+</code></pre>
 <h2 id="ii-publier-la-documentation-sur-github-pages">II Publier la documentation sur github pages</h2>
 <h3 id="1-en-local-creer-la-branche-qui-va-accueillir-la-doc-le-html-et-css-generes-automatiquement-notamment">1. En local créer la branche qui va accueillir la doc (le html et css générés automatiquement notamment)</h3>
 <p><code>bash
@@ -165,6 +172,7 @@ git push -f origin gh-pages</code></p>
 <li>Allez dans "Settings".</li>
 <li>Dans la section "Pages", sélectionnez la branche gh-pages comme source et roots Cliquez sur "Save".</li>
 </ul>
+<h3 id="4-ajouter-au-yml">4. ajouter au yml</h3>
 <h3 id="3-construisez-votre-doc-et-deployer-votre-code-sur-la-branch">3. Construisez votre doc et déployer votre code sur la branch:</h3>
 <p><code>bash
  mkdocs build    
